@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+	<persistence-unit-metadata>
+		<persistence-unit-defaults>
+			<access>FIELD</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<entity class="net.crowdfunding.intf.model.Member">
+		<table name="CRF_MEMBER">
+		</table>
+		<attributes>
+			<id name="id">
+				<column name="MBR_ID"/>
+				<generated-value strategy="TABLE" generator="crf_member_id"/>
+				<table-generator name="crf_member_id" pk-column-value="crf_member_id" allocation-size="1">
+				</table-generator>
+			</id>
+			<basic name="name">
+				<column name="MBR_NAME" length="100"/>
+			</basic>
+			<basic name="sex">
+				<column name="MBR_SEX"/>
+			</basic>
+			<basic name="pob">
+				<column name="MBR_POB" length="100"/>
+			</basic>
+			<basic name="dob">
+				<column name="MBR_DOB"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="motherName">
+				<column name="MBR_MOTHERNAME" length="100"/>
+			</basic>
+			<basic name="idType">
+				<column name="MBR_IDTYPE"/>
+			</basic>
+			<basic name="idCode">
+				<column name="MBR_IDCODE" length="50"/>
+			</basic>
+			<basic name="address">
+				<column name="MBR_ADDRESS" length="400"/>
+			</basic>
+			<basic name="city">
+				<column name="MBR_CITY" length="100"/>
+			</basic>
+			<basic name="province">
+				<column name="MBR_PROVINCE" length="100"/>
+			</basic>
+			<basic name="cellPhone">
+				<column name="MBR_CELLPHONE" length="30"/>
+			</basic>
+			<basic name="fixPhone">
+				<column name="MBR_FIXPHONE" length="30"/>
+			</basic>
+			<basic name="email">
+				<column name="MBR_EMAIL" length="100"/>
+			</basic>
+			<basic name="tsCreate">
+				<column name="MBR_TSCREATE"/>
+			</basic>
+			<basic name="userCreate">
+				<column name="MBR_USERCREATE"/>
+			</basic>
+			<basic name="tsEdit">
+				<column name="MBR_TSEDIT"/>
+			</basic>
+			<basic name="userEdit">
+				<column name="MBR_USEREDIT"/>
+			</basic>
+			<basic name="registration">
+				<column name="MBR_REGISTRATION"/>
+				<temporal>DATE</temporal>
+			</basic>
+		</attributes>
+	</entity>
+	<entity class="net.crowdfunding.intf.model.Prospect">
+		<table name="CRF_PROSPECT">
+		</table>
+		<attributes>
+			<id name="id">
+				<column name="PRP_ID"/>
+				<generated-value strategy="TABLE" generator="crf_prospect_id"/>
+				<table-generator name="crf_prospect_id" pk-column-value="crf_prospect_id" allocation-size="1">
+				</table-generator>
+			</id>
+			<basic name="title">
+				<column name="PRP_TITLE" length="100"/>
+			</basic>
+			<basic name="shortDescription">
+				<column name="PRP_SHORTDESCRIPTION" length="400"/>
+			</basic>
+			<basic name="description">
+				<column name="PRP_DESCRIPTION" length="4000"/>
+			</basic>
+			<basic name="smallImage">
+				<column name="PRP_SMALLIMAGE" length="200"/>
+			</basic>
+			<basic name="bigImage1">
+				<column name="PRP_BIGIMAGE1" length="200"/>
+			</basic>
+			<basic name="bigImage2">
+				<column name="PRP_BIGIMAGE2" length="200"/>
+			</basic>
+			<basic name="location">
+				<column name="PRP_LOCATION" length="100"/>
+			</basic>
+			<basic name="province">
+				<column name="PRP_PROVINCE" length="100"/>
+			</basic>
+			<basic name="principal">
+				<column name="PRP_PRINCIPAL"/>
+			</basic>
+			<basic name="rate">
+				<column name="PRP_RATE"/>
+			</basic>
+			<basic name="tenor">
+				<column name="PRP_TENOR"/>
+			</basic>
+			<basic name="begin" fetch="LAZY">
+				<column name="PRP_BEGIN"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="end">
+				<column name="PRP_END"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="verified">
+				<column name="PRP_VERIFIED"/>
+			</basic>
+			<basic name="verifier">
+				<column name="PRP_VERIFIER"/>
+			</basic>
+			<basic name="verifiedDate">
+				<column name="PRP_VERIFIEDDATE"/>
+			</basic>
+			<basic name="userCreate">
+				<column name="PRP_USERCREATE"/>
+			</basic>
+			<basic name="tsCreate">
+				<column name="PRP_TSCREATE"/>
+			</basic>
+			<basic name="userEdit">
+				<column name="PRP_USEREDIT"/>
+			</basic>
+			<basic name="tsEdit">
+				<column name="PRP_TSEDIT"/>
+			</basic>
+			<many-to-one name="owner">
+				<join-column name="MBR_ID" referenced-column-name="MBR_ID"/>
+			</many-to-one>
+		</attributes>
+	</entity>
+	<entity class="net.crowdfunding.intf.model.Registration">
+		<table name="CRF_REGISTRATION">
+		</table>
+		<named-query name="getRegistrationByKey">
+			<query>select x from Registration x where x.key=:key</query>
+		</named-query>
+		<attributes>
+			<embedded-id name="id">
+			</embedded-id>
+			<basic name="name">
+				<column name="REG_NAME" length="100"/>
+			</basic>
+			<basic name="key">
+				<column name="REG_KEY" length="100"/>
+			</basic>
+			<basic name="status">
+				<column name="REG_STATUS"/>
+			</basic>
+			<basic name="invest">
+				<column name="REG_INVEST"/>
+			</basic>
+			<basic name="principal">
+				<column name="REG_PRINCIPAL"/>
+			</basic>
+			<basic name="tenor">
+				<column name="REG_TENOR"/>
+			</basic>
+		</attributes>
+	</entity>
+	<embeddable class="net.crowdfunding.intf.model.RegistrationPK">
+		<attributes>
+			<basic name="email">
+				<column name="REG_EMAIL" length="100"/>
+			</basic>
+			<basic name="timestamp">
+				<column name="REG_TIMESTAMP"/>
+			</basic>
+		</attributes>
+	</embeddable>
+</entity-mappings>

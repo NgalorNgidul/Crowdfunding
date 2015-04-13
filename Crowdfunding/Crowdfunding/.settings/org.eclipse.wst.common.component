@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Crowdfunding">
+        <wb-resource deploy-path="/" source-path="/EarContent" tag="defaultRootSource"/>
+        <dependent-module archiveName="CrowdfundingIntf.jar" deploy-path="/lib" handle="module:/resource/CrowdfundingIntf/CrowdfundingIntf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CrowdfundingEjb.jar" deploy-path="/" handle="module:/resource/CrowdfundingEjb/CrowdfundingEjb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="SystemIntf.jar" deploy-path="/lib" handle="module:/resource/SystemIntf/SystemIntf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CrowdfundingApiIntf.jar" deploy-path="/lib" handle="module:/resource/CrowdfundingApiIntf/CrowdfundingApiIntf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CrowdfundingApiEjb.jar" deploy-path="/" handle="module:/resource/CrowdfundingApiEjb/CrowdfundingApiEjb">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CrowdfundingApiRest.war" deploy-path="/" handle="module:/resource/CrowdfundingApiRest/CrowdfundingApiRest">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>
