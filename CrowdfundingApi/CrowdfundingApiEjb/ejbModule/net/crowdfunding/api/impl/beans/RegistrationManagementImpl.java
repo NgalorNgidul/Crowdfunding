@@ -45,13 +45,13 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 				+ "Apabila anda ingin melanjutkan klik link berikut\n\n"
 				+ "http://app.croowd.co.id/member/verification/"
 				+ key
-				+ "\n\nUntuk mempelajari lebih lanjut silakan kunjungi situs kami di http://www.croowd.co.id\n\n"
+				+ "\n\nUntuk mempelajari lebih lanjut silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
 				+ "Salam sukses\n" + "Tim Croowd"
 				: "Terima kasih atas ketertarikan anda menjadi investor di Croowd.\n\n"
-						+ "Apabila anda ingin melanjutkan menjadi calon investor di tempat kami\n\nklik link berikut\n\n"
+						+ "Apabila anda ingin melanjutkan menjadi calon investor di tempat kami klik link berikut\n\n"
 						+ "http://app.croowd.co.id/member/verification/"
 						+ key
-						+ "\n\nUntuk mempelajari lebih lanjut silakan kunjungi situs kami di http://www.croowd.co.id\n\n"
+						+ "\n\nUntuk mempelajari lebih lanjut silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
 						+ "Salam sukses\n" + "Tim Croowd";
 		try {
 			MimeMessage m = new MimeMessage(mailSession);
