@@ -21,17 +21,18 @@ public class Prospect implements Serializable {
 	double principal;
 	double rate;
 	int tenor;
+	//
 	int verified;
 	Date verifiedDate;
 	long verifier;
 	Date begin;
 	Date end;
-
+	//
 	long userCreate;
 	Date tsCreate;
 	long userEdit;
 	Date tsEdit;
-	
+
 	public long getId() {
 		return id;
 	}

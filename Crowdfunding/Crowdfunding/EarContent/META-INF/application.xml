@@ -10,7 +10,7 @@
   <module>
     <web>
       <web-uri>CrowdfundingApiRest.war</web-uri>
-      <context-root>CrowdfundingApiRest</context-root>
+      <context-root>api</context-root>
     </web>
   </module>
 </application>
