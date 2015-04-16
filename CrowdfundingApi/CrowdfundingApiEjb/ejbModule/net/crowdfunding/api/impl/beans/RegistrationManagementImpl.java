@@ -20,6 +20,7 @@ import javax.mail.internet.MimeMessage;
 
 import net.crowdfunding.api.intf.beans.RegistrationManagement;
 import net.crowdfunding.api.intf.dto.RegistrationDto;
+import net.crowdfunding.intf.beans.IRegistration;
 import net.crowdfunding.intf.model.Registration;
 import net.crowdfunding.intf.model.RegistrationPK;
 
@@ -37,31 +38,40 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 	@EJB(lookup = "java:global/System/SystemEjb/SecurityImpl")
 	ISecurity iSecurity;
 
+	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/RegistrationImpl")
+	IRegistration iRegistration;
+
 	@Resource(mappedName = "java:jboss/mail/Default")
 	private javax.mail.Session mailSession;
 
-	private void sendEmail(String emailAddress, String key, int invest) {
-		String text = invest == 0 ? "Terima kasih atas ketertarikan anda mencari pembiayaan di Croowd.\n\n"
-				+ "Apabila anda ingin melanjutkan klik link berikut\n\n"
-				+ "http://app.croowd.co.id/member/verification/"
-				+ key
-				+ "\n\nUntuk mempelajari lebih lanjut silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
+	private void sendEmail(String emailAddress, String key, String name,
+			int invest) {
+		String url = "http://app.croowd.co.id/validation/#" + key;
+		String text = invest == 0 ? "Yang terhormat sdr/i "
+				+ name
+				+ ",\n terima kasih atas ketertarikan anda mencari pembiayaan di Croowd.\n\n"
+				+ "Untuk melanjutkan proses registrasi, silahkan klik link berikut\n\n"
+				+ url
+				+ "\n\nUntuk mempelajari lebih lanjut tentang Croowd silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
 				+ "Salam sukses\n" + "Tim Croowd"
-				: "Terima kasih atas ketertarikan anda menjadi investor di Croowd.\n\n"
-						+ "Apabila anda ingin melanjutkan menjadi calon investor di tempat kami klik link berikut\n\n"
-						+ "http://app.croowd.co.id/member/verification/"
-						+ key
-						+ "\n\nUntuk mempelajari lebih lanjut silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
+				: "Yang terhormat sdr/i "
+						+ name
+						+ ",\n terima kasih atas ketertarikan anda menjadi investor di Croowd.\n\n"
+						+ "Apabila anda ingin melanjutkan menjadi calon investor di tempat kami silahkan klik link berikut\n\n"
+						+ url
+						+ "\n\nUntuk mempelajari lebih lanjut tentang Croowd silahkan kunjungi situs kami di http://www.croowd.co.id\n\n"
 						+ "Salam sukses\n" + "Tim Croowd";
 		try {
 			MimeMessage m = new MimeMessage(mailSession);
-			Address from = new InternetAddress("manager@croowd.co.id");
+			Address from = new InternetAddress(
+					"Management Croowd<manager@croowd.co.id>");
 			Address[] to = new InternetAddress[] { new InternetAddress(
 					emailAddress) };
 
 			m.setFrom(from);
 			m.setRecipients(Message.RecipientType.TO, to);
-			m.setSubject("Registrasi dan validasi Croowd.co.id");
+			m.setSubject("Validasi keanggotaan Croowd.co.id untuk sdr/i "
+					+ name);
 			m.setSentDate(new java.util.Date());
 			m.setContent(text, "text/plain");
 			Transport.send(m);
@@ -78,7 +88,7 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 		Date timestamp = new Date();
 		String key = iSecurity.getUriRandomHash(timestamp.toString());
 		//
-		sendEmail(dto.getEmail(), key, dto.getInvest());
+		sendEmail(dto.getEmail(), key, dto.getName(), dto.getInvest());
 		//
 		RegistrationPK id = new RegistrationPK();
 		id.setEmail(dto.getEmail());
@@ -107,6 +117,17 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	@Override
+	public Integer validate(String key) {
+		Registration reg = iRegistration.get(key);
+		if (reg.getStatus()<=1){
+			reg.setStatus(1);
+			iRegistration.save(reg);
+			return 0;
+		}
+		return reg.getStatus();
 	}
 
 }

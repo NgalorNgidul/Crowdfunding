@@ -28,4 +28,9 @@ public class RegistrationImpl implements IRegistration {
 		return resultList.size() == 1 ? resultList.get(0) : null;
 	}
 
+	@Override
+	public void save(Registration reg) {
+		em.merge(reg);
+	}
+
 }
