@@ -10,4 +10,6 @@ public interface ProspectManagement {
 	List<ProspectDto> listPopular();
 
 	List<ProspectDto> find(String textKey);
+
+	List<ProspectDto> listAll(String session);
 }

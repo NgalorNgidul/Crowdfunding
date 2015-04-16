@@ -7,6 +7,8 @@ import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
+import org.simbiosis.system.api.bean.ISessionManager;
+
 import net.crowdfunding.api.intf.beans.ProspectManagement;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 import net.crowdfunding.intf.beans.IProspect;
@@ -16,6 +18,8 @@ import net.crowdfunding.intf.model.Prospect;
 @Remote(ProspectManagement.class)
 public class ProspectManagementImpl implements ProspectManagement {
 
+	@EJB(lookup = "java:global/SystemApi/SystemApiEjb/SessionManager")
+	ISessionManager iSessionManager;
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/ProspectImpl")
 	IProspect iProspect;
 
@@ -63,6 +67,15 @@ public class ProspectManagementImpl implements ProspectManagement {
 			result.add(createDto(prospect));
 		}
 		return result;
+	}
+
+	@Override
+	public List<ProspectDto> listAll(String session) {
+		//FIXME: hanya dummy
+		if (iSessionManager.isValid(session)){
+			return listPopular();
+		}
+		return new ArrayList<ProspectDto>();
 	}
 
 }

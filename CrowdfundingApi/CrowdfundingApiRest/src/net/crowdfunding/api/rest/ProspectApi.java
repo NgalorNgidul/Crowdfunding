@@ -30,7 +30,7 @@ public class ProspectApi {
 	public List<ProspectDto> find(@PathParam("textKey") String textKey) {
 		return prospectManagement.find(textKey);
 	}
-	
+
 	@GET()
 	@Path("/{prospectId}")
 	@Produces("application/json")
@@ -38,5 +38,11 @@ public class ProspectApi {
 		return prospectManagement.get(prospectId);
 	}
 
+	@GET()
+	@Path("/{session}/listAll")
+	@Produces("application/json")
+	public List<ProspectDto> listAll(@PathParam("session") String session) {
+		return prospectManagement.listAll(session);
+	}
 
 }

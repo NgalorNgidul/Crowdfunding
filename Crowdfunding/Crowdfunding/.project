@@ -9,6 +9,7 @@
 		<project>CrowdfundingApiIntf</project>
 		<project>CrowdfundingApiEjb</project>
 		<project>CrowdfundingApiRest</project>
+		<project>SystemApiIntf</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
