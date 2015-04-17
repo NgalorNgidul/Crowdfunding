@@ -12,6 +12,7 @@ public class Prospect implements Serializable {
 	String title;
 	String shortDescription;
 	String description;
+	String category;
 	String smallImage;
 	String bigImage1;
 	String bigImage2;
@@ -63,6 +64,14 @@ public class Prospect implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getSmallImage() {

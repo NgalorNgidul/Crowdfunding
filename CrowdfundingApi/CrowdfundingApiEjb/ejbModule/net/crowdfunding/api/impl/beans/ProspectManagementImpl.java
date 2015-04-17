@@ -32,6 +32,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setTitle(prospect.getTitle());
 		dto.setSmallImage("images/projects/small/" + dto.getId() + ".jpg");
 		dto.setShortDescription(prospect.getShortDescription());
+		dto.setDescription(dto.getShortDescription());
 		dto.setLocation(prospect.getLocation());
 		dto.setProvince(prospect.getProvince());
 		dto.setOwnerName(prospect.getOwner().getName());
