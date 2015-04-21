@@ -7,7 +7,7 @@ import net.crowdfunding.intf.model.Prospect;
 public interface IProspect {
 	Prospect get(long id);
 
-	List<Prospect> listPopular();
+	List<Prospect> listAll();
 
 	List<Prospect> find(String textKey);
 }

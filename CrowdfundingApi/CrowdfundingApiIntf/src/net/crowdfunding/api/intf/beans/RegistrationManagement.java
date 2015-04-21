@@ -5,5 +5,5 @@ import net.crowdfunding.api.intf.dto.RegistrationDto;
 public interface RegistrationManagement {
 	String register(RegistrationDto reg);
 
-	Integer validate(String key);
+	RegistrationDto validate(String key);
 }

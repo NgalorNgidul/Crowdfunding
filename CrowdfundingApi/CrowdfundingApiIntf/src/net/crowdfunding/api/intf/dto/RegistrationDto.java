@@ -9,14 +9,20 @@ public class RegistrationDto implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -1855379872733936622L;
-	String email;
-	Date timestamp;
-	String name;
-	Integer invest;
-	Double principal;
-	Integer tenor;
-	String key;
-	Integer status;
+	private Date timestamp;
+	private String email;
+	private String name;
+	private String address;
+	private String city;
+	private String zipCode;
+	private String province;
+	private String phone;
+	private String password;
+	private Integer invest;
+	private Double principal;
+	private Integer tenor;
+	private String key;
+	private Integer status;
 
 	public String getEmail() {
 		return email;
@@ -76,6 +82,58 @@ public class RegistrationDto implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getStatus() {
+		return status;
 	}
 
 }

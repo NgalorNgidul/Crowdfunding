@@ -120,14 +120,19 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 	}
 
 	@Override
-	public Integer validate(String key) {
+	public RegistrationDto validate(String key) {
 		Registration reg = iRegistration.get(key);
 		if (reg.getStatus()<=1){
 			reg.setStatus(1);
 			iRegistration.save(reg);
-			return 0;
+			//
+			RegistrationDto result = new RegistrationDto();
+			result.setEmail(reg.getId().getEmail());
+			result.setName(reg.getName());
+			//
+			return result;
 		}
-		return reg.getStatus();
+		return null;
 	}
 
 }

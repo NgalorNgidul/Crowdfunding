@@ -76,7 +76,13 @@
 	<entity class="net.crowdfunding.intf.model.Prospect">
 		<table name="CRF_PROSPECT">
 		</table>
-		<attributes>
+		<named-query name="findByText">
+			<query>select x from Prospect x where x.description like :text or x.shortDescription like :text</query>
+		</named-query>
+		<named-query name="listAll">
+			<query>select x from Prospect x</query>
+		</named-query>
+				<attributes>
 			<id name="id">
 				<column name="PRP_ID"/>
 				<generated-value strategy="TABLE" generator="crf_prospect_id"/>
