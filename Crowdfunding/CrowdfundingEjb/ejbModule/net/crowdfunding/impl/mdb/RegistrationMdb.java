@@ -28,7 +28,6 @@ public class RegistrationMdb implements MessageListener {
 	 * Default constructor.
 	 */
 	public RegistrationMdb() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
