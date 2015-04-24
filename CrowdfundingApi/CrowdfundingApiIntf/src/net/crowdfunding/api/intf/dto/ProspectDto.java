@@ -17,6 +17,11 @@ public class ProspectDto implements Serializable {
 	String category;
 	String picture;
 	String ownerName;
+	String email;
+	String address;
+	String city;
+	String zipCode;
+	String phone;
 	String location;
 	String province;
 	double principal;
@@ -178,6 +183,46 @@ public class ProspectDto implements Serializable {
 
 	public void setRemainingDay(int remainingDay) {
 		this.remainingDay = remainingDay;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 }

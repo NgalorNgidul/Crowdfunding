@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 import net.crowdfunding.api.intf.beans.ProspectManagement;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 import net.crowdfunding.intf.beans.IProspect;
+import net.crowdfunding.intf.model.Member;
 import net.crowdfunding.intf.model.Prospect;
 
 import org.joda.time.DateTime;
@@ -31,13 +32,15 @@ public class ProspectManagementImpl implements ProspectManagement {
 		ProspectDto dto = new ProspectDto();
 		dto.setId(prospect.getId());
 		dto.setTitle(prospect.getTitle());
+		// FIXME: lokasi gambar masih hardcoded
 		dto.setSmallImage("images/projects/small/" + dto.getId() + ".jpg");
 		dto.setShortDescription(prospect.getShortDescription());
 		dto.setDescription(dto.getShortDescription());
 		dto.setLocation(prospect.getLocation());
 		dto.setProvince(prospect.getProvince());
-		dto.setOwnerName(prospect.getOwner().getName());
 		dto.setPrincipal(prospect.getPrincipal());
+		dto.setTenor(prospect.getTenor());
+		// FIXME: jumlah yang terkumpul masih hardcoded
 		dto.setPledged(14000000);
 		Double dPersen = dto.getPledged() * 100 / dto.getPrincipal();
 		Integer iPersen = dPersen.intValue();
@@ -45,6 +48,13 @@ public class ProspectManagementImpl implements ProspectManagement {
 		DateTime nowTime = new DateTime();
 		DateTime endTime = new DateTime(prospect.getEnd());
 		dto.setRemainingDay(Days.daysBetween(nowTime, endTime).getDays());
+		Member owner = prospect.getOwner();
+		dto.setOwnerName(owner.getName());
+		dto.setAddress(owner.getAddress());
+		dto.setEmail(owner.getEmail());
+		dto.setCity(owner.getCity());
+		dto.setZipCode("");
+		dto.setPhone(owner.getCellPhone());
 		return dto;
 	}
 
