@@ -33,4 +33,12 @@ public class RegistrationApi {
 		return registrationManagement.validate(validationKey);
 	}
 
+	@POST()
+	@Path("/regeistermember")
+	@Consumes("application/json")
+	public String registerMember(RegistrationDto dto) {
+		registrationManagement.registerMember(dto);
+		return "";
+	}
+
 }

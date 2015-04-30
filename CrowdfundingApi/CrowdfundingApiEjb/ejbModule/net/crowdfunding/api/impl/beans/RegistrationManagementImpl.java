@@ -20,11 +20,15 @@ import javax.mail.internet.MimeMessage;
 
 import net.crowdfunding.api.intf.beans.RegistrationManagement;
 import net.crowdfunding.api.intf.dto.RegistrationDto;
+import net.crowdfunding.intf.beans.IMember;
 import net.crowdfunding.intf.beans.IRegistration;
+import net.crowdfunding.intf.model.Member;
 import net.crowdfunding.intf.model.Registration;
 import net.crowdfunding.intf.model.RegistrationPK;
 
+import org.simbiosis.system.api.bean.IUserManager;
 import org.simbiosis.system.bean.ISecurity;
+import org.simbiosis.system.model.User;
 
 @Stateless
 @Remote(RegistrationManagement.class)
@@ -38,8 +42,14 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 	@EJB(lookup = "java:global/System/SystemEjb/SecurityImpl")
 	ISecurity iSecurity;
 
+	@EJB(lookup = "java:global/System/SystemApiEjb/UserManager")
+	IUserManager iUser;
+
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/RegistrationImpl")
 	IRegistration iRegistration;
+
+	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/MemberImpl")
+	IMember iMember;
 
 	@Resource(mappedName = "java:jboss/mail/Default")
 	private javax.mail.Session mailSession;
@@ -122,17 +132,52 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 	@Override
 	public RegistrationDto validate(String key) {
 		Registration reg = iRegistration.get(key);
-		if (reg.getStatus()<=1){
+		if (reg != null && reg.getStatus() <= 1) {
 			reg.setStatus(1);
 			iRegistration.save(reg);
 			//
 			RegistrationDto result = new RegistrationDto();
+			result.setTimestamp(reg.getId().getTimestamp());
 			result.setEmail(reg.getId().getEmail());
 			result.setName(reg.getName());
 			//
 			return result;
 		}
 		return null;
+	}
+
+	@Override
+	public String registerMember(RegistrationDto dto) {
+		Registration reg = iRegistration
+				.get(dto.getEmail(), dto.getTimestamp());
+		if (reg != null) {
+			// Registered
+			reg.setStatus(2);
+			iRegistration.save(reg);
+			//
+			Date today = new Date();
+			long company = 2;
+			long branch = 2;
+			// Create user
+			User user = new User();
+			user.setName(dto.getEmail());
+			user.setActive(1);
+			user.setRealName(dto.getName());
+			user.setPassword(dto.getPassword());
+			user.setEmail(dto.getEmail());
+			user = iUser.save(company, branch, user);
+			// Create member
+			Member member = new Member();
+			member.setName(dto.getName());
+			member.setEmail(dto.getEmail());
+			member.setAddress(dto.getAddress());
+			member.setCity(dto.getCity());
+			member.setProvince(dto.getProvince());
+			member.setTsCreate(today);
+			member.setUserCreate(user.getId());
+			iMember.save(member);
+		}
+		return "";
 	}
 
 }

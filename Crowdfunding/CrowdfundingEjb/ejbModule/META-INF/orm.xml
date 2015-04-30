@@ -77,7 +77,7 @@
 		<table name="CRF_PROSPECT">
 		</table>
 		<named-query name="findByText">
-			<query>select x from Prospect x where x.description like :text or x.shortDescription like :text</query>
+			<query>select x from Prospect x where x.description like :text or x.shortDescription like :text or x.title like :text</query>
 		</named-query>
 		<named-query name="listAll">
 			<query>select x from Prospect x</query>
@@ -161,6 +161,9 @@
 		</table>
 		<named-query name="getRegistrationByKey">
 			<query>select x from Registration x where x.key=:key</query>
+		</named-query>
+		<named-query name="getRegistration">
+			<query>select x from Registration x where x.id.timestamp=:timestamp and x.id.email=:email</query>
 		</named-query>
 		<attributes>
 			<embedded-id name="id">
