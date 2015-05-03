@@ -42,7 +42,7 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 	@EJB(lookup = "java:global/System/SystemEjb/SecurityImpl")
 	ISecurity iSecurity;
 
-	@EJB(lookup = "java:global/System/SystemApiEjb/UserManager")
+	@EJB(lookup = "java:global/SystemApi/SystemApiEjb/UserManager")
 	IUserManager iUser;
 
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/RegistrationImpl")
@@ -154,7 +154,7 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			// Registered
 			reg.setStatus(2);
 			iRegistration.save(reg);
-			//
+			// FIXME: company dan branch masih di pantek hardcode
 			Date today = new Date();
 			long company = 2;
 			long branch = 2;

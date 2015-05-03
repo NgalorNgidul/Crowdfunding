@@ -36,9 +36,18 @@ public class ProspectImpl implements IProspect {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prospect> find(String textKey) {
-		String text = "%" + textKey + "%";
+		String text = "%" + textKey.toLowerCase() + "%";
 		Query qry = em.createNamedQuery("findByText");
 		qry.setParameter("text", text);
+		List<Prospect> result = qry.getResultList();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prospect> listAllByOwner(long ownerId) {
+		Query qry = em.createNamedQuery("listAllByOwnerId");
+		qry.setParameter("ownerId", ownerId);
 		List<Prospect> result = qry.getResultList();
 		return result;
 	}

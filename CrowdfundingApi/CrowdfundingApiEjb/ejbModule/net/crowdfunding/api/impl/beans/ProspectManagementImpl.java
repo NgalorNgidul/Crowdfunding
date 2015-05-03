@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 
 import net.crowdfunding.api.intf.beans.ProspectManagement;
 import net.crowdfunding.api.intf.dto.ProspectDto;
+import net.crowdfunding.intf.beans.IMember;
 import net.crowdfunding.intf.beans.IProspect;
 import net.crowdfunding.intf.model.Member;
 import net.crowdfunding.intf.model.Prospect;
@@ -17,6 +18,7 @@ import net.crowdfunding.intf.model.Prospect;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.simbiosis.system.api.bean.ISessionManager;
+import org.simbiosis.system.model.Session;
 
 @Stateless
 @Remote(ProspectManagement.class)
@@ -24,6 +26,8 @@ public class ProspectManagementImpl implements ProspectManagement {
 
 	@EJB(lookup = "java:global/SystemApi/SystemApiEjb/SessionManager")
 	ISessionManager iSessionManager;
+	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/MemberImpl")
+	IMember iMember;
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/ProspectImpl")
 	IProspect iProspect;
 
@@ -91,6 +95,20 @@ public class ProspectManagementImpl implements ProspectManagement {
 		if (iSessionManager.isValid(session)) {
 			List<ProspectDto> result = new ArrayList<ProspectDto>();
 			for (Prospect prospect : iProspect.listAll()) {
+				result.add(createDto(prospect));
+			}
+			return result;
+		}
+		return new ArrayList<ProspectDto>();
+	}
+
+	@Override
+	public List<ProspectDto> listAllByOwner(String sessionName) {
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			Member member = iMember.getMemberByUser(session.getUser().getId());
+			List<ProspectDto> result = new ArrayList<ProspectDto>();
+			for (Prospect prospect : iProspect.listAllByOwner(member.getId())) {
 				result.add(createDto(prospect));
 			}
 			return result;

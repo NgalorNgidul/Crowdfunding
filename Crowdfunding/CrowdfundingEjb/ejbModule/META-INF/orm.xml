@@ -8,6 +8,9 @@
 	<entity class="net.crowdfunding.intf.model.Member">
 		<table name="CRF_MEMBER">
 		</table>
+		<named-query name="getMemberByUser">
+			<query>select x from Member x where x.userCreate=:userId</query>
+		</named-query>
 		<attributes>
 			<id name="id">
 				<column name="MBR_ID"/>
@@ -77,12 +80,15 @@
 		<table name="CRF_PROSPECT">
 		</table>
 		<named-query name="findByText">
-			<query>select x from Prospect x where x.description like :text or x.shortDescription like :text or x.title like :text</query>
+			<query>select x from Prospect x where lower(x.description) like :text or lower(x.shortDescription) like :text or lower(x.title) like :text</query>
 		</named-query>
 		<named-query name="listAll">
 			<query>select x from Prospect x</query>
 		</named-query>
-				<attributes>
+		<named-query name="listAllByOwner">
+			<query>select x from Prospect x where x.owner.id=:ownerId</query>
+		</named-query>
+		<attributes>
 			<id name="id">
 				<column name="PRP_ID"/>
 				<generated-value strategy="TABLE" generator="crf_prospect_id"/>

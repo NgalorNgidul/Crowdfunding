@@ -34,9 +34,9 @@ public class RegistrationApi {
 	}
 
 	@POST()
-	@Path("/regeistermember")
+	@Path("/confirmmember")
 	@Consumes("application/json")
-	public String registerMember(RegistrationDto dto) {
+	public String confirmMember(RegistrationDto dto) {
 		registrationManagement.registerMember(dto);
 		return "";
 	}

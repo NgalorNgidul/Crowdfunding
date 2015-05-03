@@ -12,4 +12,6 @@ public interface ProspectManagement {
 	List<ProspectDto> find(String textKey);
 
 	List<ProspectDto> listAll(String session);
+	
+	List<ProspectDto> listAllByOwner(String session);
 }

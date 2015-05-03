@@ -45,4 +45,12 @@ public class ProspectApi {
 		return prospectManagement.listAll(session);
 	}
 
+	@GET()
+	@Path("/{session}/listAllByOwner")
+	@Produces("application/json")
+	public List<ProspectDto> listAllByOwner(@PathParam("session") String session) {
+		return prospectManagement.listAllByOwner(session);
+	}
+
+
 }
