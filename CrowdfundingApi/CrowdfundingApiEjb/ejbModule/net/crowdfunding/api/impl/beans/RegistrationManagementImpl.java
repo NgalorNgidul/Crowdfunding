@@ -154,10 +154,11 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			// Registered
 			reg.setStatus(2);
 			iRegistration.save(reg);
-			// FIXME: company dan branch masih di pantek hardcode
+			// FIXME: company, branch dan subBranch masih di pantek hardcode
 			Date today = new Date();
 			long company = 2;
 			long branch = 2;
+			long subBranch = 2;
 			// Create user
 			User user = new User();
 			user.setName(dto.getEmail());
@@ -165,7 +166,8 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			user.setRealName(dto.getName());
 			user.setPassword(dto.getPassword());
 			user.setEmail(dto.getEmail());
-			user = iUser.save(company, branch, user);
+			user.setFirstModule("member");
+			user = iUser.saveAsMember(company, branch, subBranch, user);
 			// Create member
 			Member member = new Member();
 			member.setName(dto.getName());

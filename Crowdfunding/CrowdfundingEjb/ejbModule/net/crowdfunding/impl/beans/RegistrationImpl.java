@@ -23,7 +23,7 @@ public class RegistrationImpl implements IRegistration {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Registration get(String email, Date timestamp) {
-		Query qry = em.createNamedQuery("getRegistrationBy");
+		Query qry = em.createNamedQuery("getRegistrationById");
 		qry.setParameter("email", email);
 		qry.setParameter("timestamp", timestamp);
 		List<Registration> resultList = qry.getResultList();

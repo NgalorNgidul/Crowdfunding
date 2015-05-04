@@ -168,7 +168,7 @@
 		<named-query name="getRegistrationByKey">
 			<query>select x from Registration x where x.key=:key</query>
 		</named-query>
-		<named-query name="getRegistration">
+		<named-query name="getRegistrationById">
 			<query>select x from Registration x where x.id.timestamp=:timestamp and x.id.email=:email</query>
 		</named-query>
 		<attributes>
