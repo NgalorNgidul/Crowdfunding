@@ -19,6 +19,7 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.simbiosis.system.api.bean.ISessionManager;
 import org.simbiosis.system.model.Session;
+import org.simbiosis.system.model.User;
 
 @Stateless
 @Remote(ProspectManagement.class)
@@ -91,21 +92,26 @@ public class ProspectManagementImpl implements ProspectManagement {
 	}
 
 	@Override
-	public List<ProspectDto> listAll(String session) {
-		if (iSessionManager.isValid(session)) {
-			List<ProspectDto> result = new ArrayList<ProspectDto>();
-			for (Prospect prospect : iProspect.listAll()) {
-				result.add(createDto(prospect));
+	public List<ProspectDto> listAll(String sessionName) {
+		Session session = iSessionManager.getSession(sessionName);
+		List<ProspectDto> result = new ArrayList<ProspectDto>();
+		if (session != null) {
+			User user = session.getUser();
+			if (user.getType() == 3) {// Member
+				
+			} else if (user.getType() == 1) {// Admin
+				for (Prospect prospect : iProspect.listAll()) {
+					result.add(createDto(prospect));
+				}
 			}
-			return result;
 		}
-		return new ArrayList<ProspectDto>();
+		return result;
 	}
 
 	@Override
 	public List<ProspectDto> listAllByOwner(String sessionName) {
-		if (iSessionManager.isValid(sessionName)) {
-			Session session = iSessionManager.getSession(sessionName);
+		Session session = iSessionManager.getSession(sessionName);
+		if (session != null) {
 			Member member = iMember.getMemberByUser(session.getUser().getId());
 			List<ProspectDto> result = new ArrayList<ProspectDto>();
 			for (Prospect prospect : iProspect.listAllByOwner(member.getId())) {
