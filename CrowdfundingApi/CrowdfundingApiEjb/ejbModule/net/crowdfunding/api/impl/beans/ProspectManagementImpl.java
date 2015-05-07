@@ -54,6 +54,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 		DateTime endTime = new DateTime(prospect.getEnd());
 		dto.setRemainingDay(Days.daysBetween(nowTime, endTime).getDays());
 		Member owner = prospect.getOwner();
+		dto.setOwnerId(owner.getId());
 		dto.setOwnerName(owner.getName());
 		dto.setAddress(owner.getAddress());
 		dto.setEmail(owner.getEmail());

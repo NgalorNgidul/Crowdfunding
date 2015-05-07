@@ -8,7 +8,7 @@ public class ProspectDto implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5850733432189684484L;
-	long id;
+	Long id;
 	String smallImage;
 	String bigImage;
 	String title;
@@ -17,6 +17,7 @@ public class ProspectDto implements Serializable {
 	String category;
 	String picture;
 	String ownerName;
+	Long ownerId;
 	String email;
 	String address;
 	String city;
@@ -33,12 +34,21 @@ public class ProspectDto implements Serializable {
 	int remainingDay;
 	int tenor;
 
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getOwnerId() {
+		return ownerId;
+	}
+
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getSmallImage() {
