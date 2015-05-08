@@ -56,8 +56,17 @@ public class ProspectImpl implements IProspect {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Prospect> listAllByOwner(long ownerId) {
-		Query qry = em.createNamedQuery("listAllByOwnerId");
+		Query qry = em.createNamedQuery("listAllByOwner");
 		qry.setParameter("ownerId", ownerId);
+		List<Prospect> result = qry.getResultList();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prospect> listByVerified(int status) {
+		Query qry = em.createNamedQuery("listByVerified");
+		qry.setParameter("verified", status);
 		List<Prospect> result = qry.getResultList();
 		return result;
 	}

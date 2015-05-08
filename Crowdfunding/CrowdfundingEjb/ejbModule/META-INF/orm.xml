@@ -80,13 +80,16 @@
 		<table name="CRF_PROSPECT">
 		</table>
 		<named-query name="findByText">
-			<query>select x from Prospect x where lower(x.description) like :text or lower(x.shortDescription) like :text or lower(x.title) like :text</query>
+			<query>select x from Prospect x where x.verified=1 and (lower(x.description) like :text or lower(x.shortDescription) like :text or lower(x.title) like :text)</query>
 		</named-query>
 		<named-query name="listAll">
 			<query>select x from Prospect x</query>
 		</named-query>
 		<named-query name="listAllByOwner">
 			<query>select x from Prospect x where x.owner.id=:ownerId</query>
+		</named-query>
+		<named-query name="listByVerified">
+			<query>select x from Prospect x where x.verified=:verified</query>
 		</named-query>
 		<attributes>
 			<id name="id">

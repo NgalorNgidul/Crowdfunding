@@ -15,5 +15,9 @@ public interface ProspectManagement {
 
 	List<ProspectDto> listAll(String session);
 
+	List<ProspectDto> listPublishApproval(String session);
+
 	List<ProspectDto> listAllByOwner(String session);
+
+	void approve(String session, Long prospectId);
 }

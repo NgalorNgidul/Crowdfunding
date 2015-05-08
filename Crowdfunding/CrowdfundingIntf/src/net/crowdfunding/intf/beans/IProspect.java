@@ -12,6 +12,8 @@ public interface IProspect {
 	List<Prospect> listAll();
 
 	List<Prospect> listAllByOwner(long ownerId);
+	
+	List<Prospect> listByVerified(int status);
 
 	List<Prospect> find(String textKey);
 

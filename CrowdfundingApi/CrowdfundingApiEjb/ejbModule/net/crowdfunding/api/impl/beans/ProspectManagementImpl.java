@@ -1,6 +1,7 @@
 package net.crowdfunding.api.impl.beans;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 		// FIXME: lokasi gambar masih hardcoded
 		dto.setSmallImage("images/projects/small/" + dto.getId() + ".jpg");
 		dto.setShortDescription(prospect.getShortDescription());
-		dto.setDescription(dto.getShortDescription());
+		dto.setDescription(prospect.getDescription());
 		dto.setLocation(prospect.getLocation());
 		dto.setProvince(prospect.getProvince());
 		dto.setPrincipal(prospect.getPrincipal());
@@ -69,12 +70,16 @@ public class ProspectManagementImpl implements ProspectManagement {
 		if (iSessionManager.isValid(dto.getSessionName())) {
 			Session session = iSessionManager.getSession(dto.getSessionName());
 			Prospect prospect = new Prospect();
+			if (dto.getId() != 0) {
+				prospect.setId(dto.getId());
+			}
 			Member member = iMember.getMemberByUser(session.getUser().getId());
 			prospect.setOwner(member);
 			prospect.setTitle(dto.getTitle());
 			prospect.setPrincipal(dto.getPrincipal());
 			prospect.setTenor(dto.getTenor());
 			prospect.setDescription(dto.getDescription());
+			prospect.setShortDescription(dto.getShortDescription());
 			prospect.setLocation(dto.getLocation());
 			return iProspect.save(prospect);
 		}
@@ -119,8 +124,26 @@ public class ProspectManagementImpl implements ProspectManagement {
 				User user = session.getUser();
 				if (user.getType() == 3) {// Member
 
-				} else if (user.getType() == 1) {// Admin
+				} else if (user.getType() == 2) {// Admin
 					for (Prospect prospect : iProspect.listAll()) {
+						result.add(createDto(prospect));
+					}
+				}
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public List<ProspectDto> listPublishApproval(String sessionName) {
+		List<ProspectDto> result = new ArrayList<ProspectDto>();
+		// Pastikan session valid
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				User user = session.getUser();
+				if (user.getType() == 2) {// Admin
+					for (Prospect prospect : iProspect.listByVerified(0)) {
 						result.add(createDto(prospect));
 					}
 				}
@@ -146,6 +169,24 @@ public class ProspectManagementImpl implements ProspectManagement {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public void approve(String sessionName, Long prospectId) {
+		// Pastikan session valid
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				User user = session.getUser();
+				if (user.getType() == 2) {// Admin
+					Prospect prospect = iProspect.get(prospectId);
+					prospect.setVerified(1);
+					prospect.setVerifiedDate(new Date());
+					prospect.setVerifier(user.getId());
+					iProspect.save(prospect);
+				}
+			}
+		}
 	}
 
 }

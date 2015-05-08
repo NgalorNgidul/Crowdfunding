@@ -56,10 +56,26 @@ public class ProspectApi {
 	}
 
 	@GET()
+	@Path("/{session}/listPublishApproval")
+	@Produces("application/json")
+	public List<ProspectDto> listPublishApproval(
+			@PathParam("session") String session) {
+		return prospectManagement.listPublishApproval(session);
+	}
+
+	@GET()
 	@Path("/{session}/listAllByOwner")
 	@Produces("application/json")
 	public List<ProspectDto> listAllByOwner(@PathParam("session") String session) {
 		return prospectManagement.listAllByOwner(session);
+	}
+
+	@GET()
+	@Path("/{session}/approve/{prospectId}")
+	public String approve(@PathParam("session") String session,
+			@PathParam("prospectId") Long prospectId) {
+		prospectManagement.approve(session, prospectId);
+		return "0";
 	}
 
 }
