@@ -65,6 +65,23 @@ public class ProspectManagementImpl implements ProspectManagement {
 	}
 
 	@Override
+	public Long save(ProspectDto dto) {
+		if (iSessionManager.isValid(dto.getSessionName())) {
+			Session session = iSessionManager.getSession(dto.getSessionName());
+			Prospect prospect = new Prospect();
+			Member member = iMember.getMemberByUser(session.getUser().getId());
+			prospect.setOwner(member);
+			prospect.setTitle(dto.getTitle());
+			prospect.setPrincipal(dto.getPrincipal());
+			prospect.setTenor(dto.getTenor());
+			prospect.setDescription(dto.getDescription());
+			prospect.setLocation(dto.getLocation());
+			return iProspect.save(prospect);
+		}
+		return 0L;
+	}
+
+	@Override
 	public ProspectDto get(Long id) {
 		return createDto(iProspect.get(id));
 	}
@@ -94,15 +111,18 @@ public class ProspectManagementImpl implements ProspectManagement {
 
 	@Override
 	public List<ProspectDto> listAll(String sessionName) {
-		Session session = iSessionManager.getSession(sessionName);
 		List<ProspectDto> result = new ArrayList<ProspectDto>();
-		if (session != null) {
-			User user = session.getUser();
-			if (user.getType() == 3) {// Member
-				
-			} else if (user.getType() == 1) {// Admin
-				for (Prospect prospect : iProspect.listAll()) {
-					result.add(createDto(prospect));
+		// Pastikan session valid
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				User user = session.getUser();
+				if (user.getType() == 3) {// Member
+
+				} else if (user.getType() == 1) {// Admin
+					for (Prospect prospect : iProspect.listAll()) {
+						result.add(createDto(prospect));
+					}
 				}
 			}
 		}
@@ -111,16 +131,21 @@ public class ProspectManagementImpl implements ProspectManagement {
 
 	@Override
 	public List<ProspectDto> listAllByOwner(String sessionName) {
-		Session session = iSessionManager.getSession(sessionName);
-		if (session != null) {
-			Member member = iMember.getMemberByUser(session.getUser().getId());
-			List<ProspectDto> result = new ArrayList<ProspectDto>();
-			for (Prospect prospect : iProspect.listAllByOwner(member.getId())) {
-				result.add(createDto(prospect));
+		List<ProspectDto> result = new ArrayList<ProspectDto>();
+		// Pastikan session valid
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				Member member = iMember.getMemberByUser(session.getUser()
+						.getId());
+				for (Prospect prospect : iProspect.listAllByOwner(member
+						.getId())) {
+					result.add(createDto(prospect));
+				}
+				return result;
 			}
-			return result;
 		}
-		return new ArrayList<ProspectDto>();
+		return result;
 	}
 
 }

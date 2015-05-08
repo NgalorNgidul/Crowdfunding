@@ -5,6 +5,8 @@ import java.util.List;
 import net.crowdfunding.intf.model.Prospect;
 
 public interface IProspect {
+	long save(Prospect prospect);
+
 	Prospect get(long id);
 
 	List<Prospect> listAll();

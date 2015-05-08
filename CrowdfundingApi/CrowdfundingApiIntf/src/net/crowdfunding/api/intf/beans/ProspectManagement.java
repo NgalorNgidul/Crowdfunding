@@ -5,6 +5,8 @@ import java.util.List;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 
 public interface ProspectManagement {
+	Long save(ProspectDto dto);
+
 	ProspectDto get(Long id);
 
 	List<ProspectDto> listPopular();
@@ -12,6 +14,6 @@ public interface ProspectManagement {
 	List<ProspectDto> find(String textKey);
 
 	List<ProspectDto> listAll(String session);
-	
+
 	List<ProspectDto> listAllByOwner(String session);
 }

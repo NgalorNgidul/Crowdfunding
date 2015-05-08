@@ -20,6 +20,16 @@ public class ProspectImpl implements IProspect {
 	EntityManager em;
 
 	@Override
+	public long save(Prospect prospect) {
+		if (prospect.getId() == 0) {
+			em.persist(prospect);
+		} else {
+			em.merge(prospect);
+		}
+		return prospect.getId();
+	}
+
+	@Override
 	public Prospect get(long id) {
 		Prospect result = em.find(Prospect.class, id);
 		return result;

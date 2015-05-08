@@ -9,6 +9,7 @@ public class ProspectDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 5850733432189684484L;
 	Long id;
+	String sessionName;
 	String smallImage;
 	String bigImage;
 	String title;
@@ -34,6 +35,13 @@ public class ProspectDto implements Serializable {
 	int remainingDay;
 	int tenor;
 
+	public String getSessionName() {
+		return sessionName;
+	}
+
+	public void setSessionName(String sessionName) {
+		this.sessionName = sessionName;
+	}
 
 	public Long getId() {
 		return id;

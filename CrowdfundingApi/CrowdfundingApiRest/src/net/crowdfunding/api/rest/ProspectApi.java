@@ -3,7 +3,9 @@ package net.crowdfunding.api.rest;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -38,6 +40,14 @@ public class ProspectApi {
 		return prospectManagement.get(prospectId);
 	}
 
+	@POST()
+	@Path("/{session}/save")
+	@Consumes("application/json")
+	public String save(ProspectDto prospect) {
+		Long id = prospectManagement.save(prospect);
+		return id == null ? "0" : id.toString();
+	}
+
 	@GET()
 	@Path("/{session}/listAll")
 	@Produces("application/json")
@@ -51,6 +61,5 @@ public class ProspectApi {
 	public List<ProspectDto> listAllByOwner(@PathParam("session") String session) {
 		return prospectManagement.listAllByOwner(session);
 	}
-
 
 }
