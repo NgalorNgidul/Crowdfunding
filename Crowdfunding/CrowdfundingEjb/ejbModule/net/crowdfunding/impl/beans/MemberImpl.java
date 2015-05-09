@@ -28,6 +28,11 @@ public class MemberImpl implements IMember {
 		}
 	}
 
+	@Override
+	public Member get(long id) {
+		return em.find(Member.class, id);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public Member getMemberByUser(long userId) {
@@ -38,6 +43,14 @@ public class MemberImpl implements IMember {
 			return result.get(0);
 		}
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Member> listAll() {
+		Query qry = em.createNamedQuery("listAllMember");
+		List<Member> result = qry.getResultList();
+		return result;
 	}
 
 }

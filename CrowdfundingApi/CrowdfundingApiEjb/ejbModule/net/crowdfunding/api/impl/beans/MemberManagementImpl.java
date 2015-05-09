@@ -1,5 +1,8 @@
 package net.crowdfunding.api.impl.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
@@ -22,12 +25,34 @@ public class MemberManagementImpl implements MemberManagement {
 
 	@Override
 	public Member getBySession(String sessionName) {
-		Session session = iSessionManager.getSession(sessionName);
-		if (session != null) {
-			Member member = iMember.getMemberByUser(session.getUser().getId());
-			return member;
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				Member member = iMember.getMemberByUser(session.getUser()
+						.getId());
+				return member;
+			}
 		}
 		return null;
+	}
+
+	@Override
+	public Member get(Long id) {
+		return iMember.get(id);
+	}
+
+	@Override
+	public List<Member> listAll(String sessionName) {
+		List<Member> result = new ArrayList<Member>();
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				if (session.getUser().getType() == 2) {
+					result.addAll(iMember.listAll());
+				}
+			}
+		}
+		return result;
 	}
 
 }

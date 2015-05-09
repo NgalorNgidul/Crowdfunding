@@ -1,5 +1,7 @@
 package net.crowdfunding.api.rest;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,10 +18,25 @@ public class MemberApi {
 	MemberManagement memberManagement;
 
 	@GET()
+	@Path("/get/{memberId}")
+	@Produces("application/json")
+	public Member get(@PathParam("memberId") Long memberId) {
+		return memberManagement.get(memberId);
+	}
+	
+	@GET()
 	@Path("/getBySession/{sessionName}")
 	@Produces("application/json")
 	public Member getBySession(@PathParam("sessionName") String sessionName) {
 		return memberManagement.getBySession(sessionName);
 	}
+
+	@GET()
+	@Path("/listAll/{sessionName}")
+	@Produces("application/json")
+	public List<Member> listAll(@PathParam("sessionName") String sessionName) {
+		return memberManagement.listAll(sessionName);
+	}
+
 
 }

@@ -11,6 +11,9 @@
 		<named-query name="getMemberByUser">
 			<query>select x from Member x where x.userCreate=:userId</query>
 		</named-query>
+		<named-query name="listAllMember">
+			<query>select x from Member x</query>
+		</named-query>
 		<attributes>
 			<id name="id">
 				<column name="MBR_ID"/>
