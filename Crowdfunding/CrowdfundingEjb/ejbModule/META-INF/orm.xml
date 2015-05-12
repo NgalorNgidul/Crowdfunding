@@ -94,6 +94,9 @@
 		<named-query name="listByVerified">
 			<query>select x from Prospect x where x.verified=:verified</query>
 		</named-query>
+		<named-query name="listAllNonOwner">
+			<query>select x from Prospect x where x.owner.id&lt;&gt;:ownerId</query>
+		</named-query>
 		<attributes>
 			<id name="id">
 				<column name="PRP_ID"/>
@@ -198,6 +201,40 @@
 			<basic name="tenor">
 				<column name="REG_TENOR"/>
 			</basic>
+		</attributes>
+	</entity>
+	<entity class="net.crowdfunding.intf.model.InvestPlan">
+		<table name="CRF_INVESTPLAN">
+		</table>
+		<named-query name="listInvestPlanByMember">
+			<query>select x from InvestPlan x where x.member.id=:memberId</query>
+		</named-query>
+		<named-query name="listAllInvestPlan">
+			<query>select x from InvestPlan x</query>
+		</named-query>
+		<attributes>
+			<id name="id">
+				<column name="IVP_ID"/>
+				<generated-value strategy="TABLE" generator="crf_investplan_id"/>
+				<table-generator name="crf_investplan_id" pk-column-value="crf_investplan_id" allocation-size="1">
+				</table-generator>
+			</id>
+			<basic name="date">
+				<column name="IVP_DATE"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="value">
+				<column name="IVP_VALUE"/>
+			</basic>
+			<basic name="timestamp">
+				<column name="IVP_TIMESTAMP"/>
+			</basic>
+			<many-to-one name="member">
+				<join-column name="MBR_ID" referenced-column-name="MBR_ID"/>
+			</many-to-one>
+			<one-to-one name="prospect">
+				<join-column name="PRP_ID" referenced-column-name="PRP_ID"/>
+			</one-to-one>
 		</attributes>
 	</entity>
 	<embeddable class="net.crowdfunding.intf.model.RegistrationPK">

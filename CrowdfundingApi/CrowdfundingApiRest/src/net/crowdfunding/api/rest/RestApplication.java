@@ -17,6 +17,7 @@ public class RestApplication extends Application {
 		classes.add(ProspectApi.class);
 		classes.add(RegistrationApi.class);
 		classes.add(MemberApi.class);
+		classes.add(InvestApi.class);
 	}
 
 	@Override
