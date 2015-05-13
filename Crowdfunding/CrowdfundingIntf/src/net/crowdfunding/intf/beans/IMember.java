@@ -5,7 +5,7 @@ import java.util.List;
 import net.crowdfunding.intf.model.Member;
 
 public interface IMember {
-	void save(Member member);
+	long save(Member member);
 
 	Member get(long id);
 

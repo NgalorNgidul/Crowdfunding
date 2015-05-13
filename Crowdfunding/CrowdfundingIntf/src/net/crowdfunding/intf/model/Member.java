@@ -18,6 +18,7 @@ public class Member implements Serializable {
 	int idType;
 	String address;
 	String city;
+	String zipCode;
 	String province;
 	String email;
 	String fixPhone;
@@ -180,6 +181,14 @@ public class Member implements Serializable {
 
 	public void setUserEdit(long userEdit) {
 		this.userEdit = userEdit;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
 	}
 
 }

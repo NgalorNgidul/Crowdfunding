@@ -20,12 +20,13 @@ public class MemberImpl implements IMember {
 	EntityManager em;
 
 	@Override
-	public void save(Member member) {
+	public long save(Member member) {
 		if (member.getId() == 0) {
 			em.persist(member);
 		} else {
 			em.merge(member);
 		}
+		return member.getId();
 	}
 
 	@Override
