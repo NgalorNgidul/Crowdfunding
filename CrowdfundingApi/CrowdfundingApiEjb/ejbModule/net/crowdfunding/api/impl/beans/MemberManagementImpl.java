@@ -30,6 +30,7 @@ public class MemberManagementImpl implements MemberManagement {
 		member.setPob(dto.getPob());
 		member.setDob(dto.getDob());
 		member.setSex(dto.getSex());
+		member.setMotherName(dto.getMotherName());
 		member.setIdType(dto.getIdType());
 		member.setIdCode(dto.getIdCode());
 		member.setAddress(dto.getAddress());

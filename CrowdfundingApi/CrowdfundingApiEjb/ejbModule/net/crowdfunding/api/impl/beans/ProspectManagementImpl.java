@@ -67,8 +67,8 @@ public class ProspectManagementImpl implements ProspectManagement {
 
 	@Override
 	public Long save(ProspectDto dto) {
-		if (iSessionManager.isValid(dto.getSessionName())) {
-			Session session = iSessionManager.getSession(dto.getSessionName());
+		if (iSessionManager.isValid(dto.getSession())) {
+			Session session = iSessionManager.getSession(dto.getSession());
 			Prospect prospect = new Prospect();
 			if (dto.getId() != 0) {
 				prospect.setId(dto.getId());

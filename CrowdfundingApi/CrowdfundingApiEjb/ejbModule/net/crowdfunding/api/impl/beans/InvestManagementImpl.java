@@ -66,17 +66,17 @@ public class InvestManagementImpl implements InvestManagement {
 		if (iSessionManager.isValid(sessionName)) {
 			Session session = iSessionManager.getSession(sessionName);
 			if (session != null) {
-				Member member = iMember.getMemberByUser(session.getUser()
+				Member investor = iMember.getMemberByUser(session.getUser()
 						.getId());
-				List<InvestPlan> plans = iInvestPlan.listByMember(member.getId());
+				List<InvestPlan> plans = iInvestPlan.listByMember(investor.getId());
 				for (InvestPlan plan : plans){
 					InvestDto dto = new InvestDto();
 					dto.setId(plan.getId());
 					dto.setValue(plan.getValue());
-					dto.setMemberId(member.getId());
+					dto.setMemberId(investor.getId());
 					dto.setProspectId(plan.getProspect().getId());
 					ProspectDto prospect = dto.getProspect(); 
-					prospect.setOwnerName(member.getName());
+					prospect.setOwnerName(plan.getProspect().getOwner().getName());
 					prospect.setTitle(plan.getProspect().getTitle());
 					prospect.setLocation(plan.getProspect().getLocation());
 					prospect.setShortDescription(plan.getProspect().getShortDescription());

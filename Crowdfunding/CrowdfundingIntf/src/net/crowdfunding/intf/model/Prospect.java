@@ -12,16 +12,23 @@ public class Prospect implements Serializable {
 	String title;
 	String shortDescription;
 	String description;
+	String location;
+	String city;
+	String province;
 	String category;
 	String smallImage;
 	String bigImage1;
 	String bigImage2;
 	Member owner;
-	String location;
-	String province;
 	double principal;
 	double rate;
 	int tenor;
+	//
+	int campaignPeriod;
+	int campaignStretchPeriod;
+	Date campaignStart;
+	Date campaignEnd;
+	Date campaignStretchEnd;
 	//
 	int verified;
 	Date verifiedDate;
@@ -216,6 +223,54 @@ public class Prospect implements Serializable {
 
 	public void setTsEdit(Date tsEdit) {
 		this.tsEdit = tsEdit;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public int getCampaignPeriod() {
+		return campaignPeriod;
+	}
+
+	public void setCampaignPeriod(int campaignPeriod) {
+		this.campaignPeriod = campaignPeriod;
+	}
+
+	public int getCampaignStretchPeriod() {
+		return campaignStretchPeriod;
+	}
+
+	public void setCampaignStretchPeriod(int campaignStretchPeriod) {
+		this.campaignStretchPeriod = campaignStretchPeriod;
+	}
+
+	public Date getCampaignStart() {
+		return campaignStart;
+	}
+
+	public void setCampaignStart(Date campaignStart) {
+		this.campaignStart = campaignStart;
+	}
+
+	public Date getCampaignEnd() {
+		return campaignEnd;
+	}
+
+	public void setCampaignEnd(Date campaignEnd) {
+		this.campaignEnd = campaignEnd;
+	}
+
+	public Date getCampaignStretchEnd() {
+		return campaignStretchEnd;
+	}
+
+	public void setCampaignStretchEnd(Date campaignStretchEnd) {
+		this.campaignStretchEnd = campaignStretchEnd;
 	}
 
 }

@@ -9,14 +9,13 @@ public class ProspectDto implements Serializable {
 	 */
 	private static final long serialVersionUID = 5850733432189684484L;
 	Long id;
-	String sessionName;
+	String session;
 	String smallImage;
 	String bigImage;
 	String title;
 	String shortDescription;
 	String description;
 	String category;
-	String picture;
 	String ownerName;
 	Long ownerId;
 	String email;
@@ -27,20 +26,22 @@ public class ProspectDto implements Serializable {
 	String location;
 	String province;
 	double principal;
+	double rate;
+	int tenor;
+	int campaignPeriod;
+	int pledgedCount;
 	double pledged;
 	int pledgedPersentage;
-	double rate;
 	Date start;
 	Date end;
 	int remainingDay;
-	int tenor;
 
-	public String getSessionName() {
-		return sessionName;
+	public String getSession() {
+		return session;
 	}
 
-	public void setSessionName(String sessionName) {
-		this.sessionName = sessionName;
+	public void setSession(String session) {
+		this.session = session;
 	}
 
 	public Long getId() {
@@ -105,14 +106,6 @@ public class ProspectDto implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
 	}
 
 	public String getOwnerName() {
@@ -241,6 +234,22 @@ public class ProspectDto implements Serializable {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+
+	public int getPledgedCount() {
+		return pledgedCount;
+	}
+
+	public void setPledgedCount(int pledgedCount) {
+		this.pledgedCount = pledgedCount;
+	}
+
+	public int getCampaignPeriod() {
+		return campaignPeriod;
+	}
+
+	public void setCampaignPeriod(int campaignPeriod) {
+		this.campaignPeriod = campaignPeriod;
 	}
 
 }

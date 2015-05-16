@@ -169,6 +169,30 @@
 			<basic name="tsEdit">
 				<column name="PRP_TSEDIT"/>
 			</basic>
+			<basic name="category">
+				<column name="PRP_CATEGORY" length="100"/>
+			</basic>
+			<basic name="campaignPeriod">
+				<column name="PRP_CAMPAIGNPERIOD"/>
+			</basic>
+			<basic name="campaignStart">
+				<column name="PRP_CAMPAIGNSTART"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="campaignEnd">
+				<column name="PRP_CAMPAIGNEND"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="city">
+				<column name="PRP_CITY" length="100"/>
+			</basic>
+			<basic name="campaignStretchEnd">
+				<column name="PRP_CAMPAIGNSTRETCHEND"/>
+				<temporal>DATE</temporal>
+			</basic>
+			<basic name="campaignStretchPeriod">
+				<column name="PRP_CAMPAIGNSTRETCHPERIOD"/>
+			</basic>
 			<many-to-one name="owner">
 				<join-column name="MBR_ID" referenced-column-name="MBR_ID"/>
 			</many-to-one>
