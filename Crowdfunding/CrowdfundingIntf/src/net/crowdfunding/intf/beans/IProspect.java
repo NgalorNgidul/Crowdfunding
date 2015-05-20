@@ -11,8 +11,14 @@ public interface IProspect {
 
 	List<Prospect> listAll();
 
+	List<Prospect> listAllVerified();
+
+	List<Prospect> listAllVerifiedByDate();
+
 	List<Prospect> listAllByOwner(long ownerId);
-	
+
+	List<Prospect> listAllByOwnerStatus(long ownerId, int status);
+
 	List<Prospect> listByVerified(int status);
 
 	List<Prospect> find(String textKey);

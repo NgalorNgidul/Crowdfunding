@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import net.crowdfunding.api.intf.beans.ProspectManagement;
+import net.crowdfunding.api.intf.dto.FindProspectDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 
 @Path("/prospect")
@@ -24,6 +25,20 @@ public class ProspectApi {
 	@Produces("application/json")
 	public List<ProspectDto> listPopuler() {
 		return prospectManagement.listPopular();
+	}
+
+	@GET()
+	@Path("/newcomer")
+	@Produces("application/json")
+	public List<ProspectDto> listNewcomer() {
+		return prospectManagement.listNewcomer();
+	}
+
+	@GET()
+	@Path("/listall/{startid}")
+	@Produces("application/json")
+	public FindProspectDto listAll() {
+		return prospectManagement.listAll();
 	}
 
 	@GET()
@@ -64,10 +79,12 @@ public class ProspectApi {
 	}
 
 	@GET()
-	@Path("/{session}/listAllByOwner")
+	@Path("/{session}/listAllByOwner/{status}")
 	@Produces("application/json")
-	public List<ProspectDto> listAllByOwner(@PathParam("session") String session) {
-		return prospectManagement.listAllByOwner(session);
+	public List<ProspectDto> listAllByOwnerStatus(
+			@PathParam("session") String session,
+			@PathParam("status") int status) {
+		return prospectManagement.listAllByOwnerStatus(session,status);
 	}
 
 	@GET()

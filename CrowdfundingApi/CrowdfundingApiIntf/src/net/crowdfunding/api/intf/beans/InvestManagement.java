@@ -7,7 +7,10 @@ import net.crowdfunding.api.intf.dto.InvestDto;
 public interface InvestManagement {
 	Long savePlan(InvestDto invest);
 
-	List<InvestDto> listAllPlanByOwner(String sessionName);
+	void verifyPlan(String sessionName, Long id);
 
-	List<InvestDto> listAllPlan(String sessionName);
+	List<InvestDto> listAllPlanByOwnerStatus(String sessionName, int status);
+
+	List<InvestDto> listAllPlanByStatus(String sessionName, int status);
+
 }

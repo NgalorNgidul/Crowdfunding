@@ -61,29 +61,65 @@ public class InvestManagementImpl implements InvestManagement {
 	}
 
 	@Override
-	public List<InvestDto> listAllPlanByOwner(String sessionName) {
+	public void verifyPlan(String sessionName, Long id) {
+		if (iSessionManager.isValid(sessionName)) {
+			Session session = iSessionManager.getSession(sessionName);
+			if (session != null) {
+				if (session.getUser().getType() == 2) {
+					InvestPlan plan = iInvestPlan.get(id);
+					//
+					plan.setVerified(1);
+					plan.setVerifiedDate(new Date());
+					plan.setVerifier(session.getUser().getId());
+					//
+					iInvestPlan.save(plan);
+				}
+			}
+		}
+	}
+
+	@Override
+	public List<InvestDto> listAllPlanByOwnerStatus(String sessionName,
+			int status) {
 		List<InvestDto> result = new ArrayList<InvestDto>();
 		if (iSessionManager.isValid(sessionName)) {
 			Session session = iSessionManager.getSession(sessionName);
 			if (session != null) {
 				Member investor = iMember.getMemberByUser(session.getUser()
 						.getId());
-				List<InvestPlan> plans = iInvestPlan.listByMember(investor.getId());
-				for (InvestPlan plan : plans){
-					InvestDto dto = new InvestDto();
-					dto.setId(plan.getId());
-					dto.setValue(plan.getValue());
-					dto.setMemberId(investor.getId());
-					dto.setProspectId(plan.getProspect().getId());
-					ProspectDto prospect = dto.getProspect(); 
-					prospect.setOwnerName(plan.getProspect().getOwner().getName());
-					prospect.setTitle(plan.getProspect().getTitle());
-					prospect.setLocation(plan.getProspect().getLocation());
-					prospect.setShortDescription(plan.getProspect().getShortDescription());
-					prospect.setDescription(plan.getProspect().getDescription());
-					prospect.setPrincipal(plan.getProspect().getPrincipal());
-					prospect.setTenor(plan.getProspect().getTenor());
-					result.add(dto);
+				List<InvestPlan> plans = null;
+				switch (status) {
+				case 0:
+					plans = iInvestPlan.listByMember(investor.getId());
+					break;
+				case 1:
+				case 2:
+					plans = iInvestPlan.listByMemberStatus(investor.getId(),
+							status - 1);
+					break;
+				}
+				if (plans != null) {
+
+					for (InvestPlan plan : plans) {
+						InvestDto dto = new InvestDto();
+						dto.setId(plan.getId());
+						dto.setValue(plan.getValue());
+						dto.setMemberId(investor.getId());
+						dto.setProspectId(plan.getProspect().getId());
+						ProspectDto prospect = dto.getProspect();
+						prospect.setId(plan.getProspect().getId());
+						prospect.setOwnerName(plan.getProspect().getOwner()
+								.getName());
+						prospect.setTitle(plan.getProspect().getTitle());
+						prospect.setLocation(plan.getProspect().getLocation());
+						prospect.setShortDescription(plan.getProspect()
+								.getShortDescription());
+						prospect.setDescription(plan.getProspect()
+								.getDescription());
+						prospect.setPrincipal(plan.getProspect().getPrincipal());
+						prospect.setTenor(plan.getProspect().getTenor());
+						result.add(dto);
+					}
 				}
 			}
 		}
@@ -91,34 +127,53 @@ public class InvestManagementImpl implements InvestManagement {
 	}
 
 	@Override
-	public List<InvestDto> listAllPlan(String sessionName) {
+	public List<InvestDto> listAllPlanByStatus(String sessionName, int status) {
 		List<InvestDto> result = new ArrayList<InvestDto>();
 		if (iSessionManager.isValid(sessionName)) {
 			Session session = iSessionManager.getSession(sessionName);
 			if (session != null) {
 				User user = session.getUser();
-				if (user.getType()==2){
-				List<InvestPlan> plans = iInvestPlan.listAll();
-				for (InvestPlan plan : plans){
-					Member member = plan.getMember();
-					InvestDto dto = new InvestDto();
-					dto.setId(plan.getId());
-					dto.setValue(plan.getValue());
-					dto.setMemberId(member.getId());
-					dto.setMemberName(member.getName());
-					dto.setProspectId(plan.getProspect().getId());
-					ProspectDto prospect = dto.getProspect(); 
-					prospect.setOwnerName(member.getName());
-					prospect.setTitle(plan.getProspect().getTitle());
-					prospect.setLocation(plan.getProspect().getLocation());
-					prospect.setShortDescription(plan.getProspect().getShortDescription());
-					prospect.setDescription(plan.getProspect().getDescription());
-					prospect.setPrincipal(plan.getProspect().getPrincipal());
-					prospect.setTenor(plan.getProspect().getTenor());
-					result.add(dto);
-				}}
+				if (user.getType() == 2) {
+					List<InvestPlan> plans = null;
+					switch (status) {
+					case 0:
+						plans = iInvestPlan.listAll();
+						break;
+					case 1:
+					case 2:
+						plans = iInvestPlan.listAllByStatus(status - 1);
+						break;
+					}
+					if (plans != null) {
+						for (InvestPlan plan : plans) {
+							Member member = plan.getMember();
+							InvestDto dto = new InvestDto();
+							dto.setId(plan.getId());
+							dto.setValue(plan.getValue());
+							dto.setMemberId(member.getId());
+							dto.setMemberName(member.getName());
+							dto.setProspectId(plan.getProspect().getId());
+							ProspectDto prospect = dto.getProspect();
+							prospect.setId(plan.getProspect().getId());
+							prospect.setOwnerName(plan.getProspect().getOwner()
+									.getName());
+							prospect.setTitle(plan.getProspect().getTitle());
+							prospect.setLocation(plan.getProspect()
+									.getLocation());
+							prospect.setShortDescription(plan.getProspect()
+									.getShortDescription());
+							prospect.setDescription(plan.getProspect()
+									.getDescription());
+							prospect.setPrincipal(plan.getProspect()
+									.getPrincipal());
+							prospect.setTenor(plan.getProspect().getTenor());
+							result.add(dto);
+						}
+					}
+				}
 			}
 		}
 		return result;
 	}
+
 }

@@ -10,6 +10,8 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 
 import net.crowdfunding.api.intf.beans.ProspectManagement;
+import net.crowdfunding.api.intf.dto.FindProspectDto;
+import net.crowdfunding.api.intf.dto.PageDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 import net.crowdfunding.intf.beans.IMember;
 import net.crowdfunding.intf.beans.IProspect;
@@ -38,8 +40,8 @@ public class ProspectManagementImpl implements ProspectManagement {
 		ProspectDto dto = new ProspectDto();
 		dto.setId(prospect.getId());
 		dto.setTitle(prospect.getTitle());
-		// FIXME: lokasi gambar masih hardcoded
-		dto.setSmallImage("images/projects/small/" + dto.getId() + ".jpg");
+		dto.setSmallImage("http://app.croowd.co.id/resources/getProspectImage?type=small&id="
+				+ dto.getId());
 		dto.setShortDescription(prospect.getShortDescription());
 		dto.setDescription(prospect.getDescription());
 		dto.setLocation(prospect.getLocation());
@@ -52,7 +54,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 		Integer iPersen = dPersen.intValue();
 		dto.setPledgedPersentage(iPersen);
 		DateTime nowTime = new DateTime();
-		DateTime endTime = new DateTime(prospect.getEnd());
+		DateTime endTime = new DateTime(prospect.getCampaignEnd());
 		dto.setRemainingDay(Days.daysBetween(nowTime, endTime).getDays());
 		Member owner = prospect.getOwner();
 		dto.setOwnerId(owner.getId());
@@ -78,9 +80,11 @@ public class ProspectManagementImpl implements ProspectManagement {
 			prospect.setTitle(dto.getTitle());
 			prospect.setPrincipal(dto.getPrincipal());
 			prospect.setTenor(dto.getTenor());
+			prospect.setCategory(dto.getCategory());
 			prospect.setDescription(dto.getDescription());
 			prospect.setShortDescription(dto.getShortDescription());
 			prospect.setLocation(dto.getLocation());
+			prospect.setCampaignPeriod(dto.getCampaignPeriod());
 			return iProspect.save(prospect);
 		}
 		return 0L;
@@ -94,7 +98,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 	@Override
 	public List<ProspectDto> listPopular() {
 		List<ProspectDto> result = new ArrayList<ProspectDto>();
-		List<Prospect> prospects = iProspect.listAll();
+		List<Prospect> prospects = iProspect.listAllVerified();
 		int i = 0;
 		Iterator<Prospect> iter = prospects.iterator();
 		while (i++ < 4 && iter.hasNext()) {
@@ -102,6 +106,38 @@ public class ProspectManagementImpl implements ProspectManagement {
 			result.add(createDto(prospect));
 		}
 		return result;
+	}
+
+	@Override
+	public List<ProspectDto> listNewcomer() {
+		List<ProspectDto> result = new ArrayList<ProspectDto>();
+		List<Prospect> prospects = iProspect.listAllVerifiedByDate();
+		int i = 0;
+		Iterator<Prospect> iter = prospects.iterator();
+		while (i++ < 4 && iter.hasNext()) {
+			Prospect prospect = iter.next();
+			result.add(createDto(prospect));
+		}
+		return result;
+	}
+
+	@Override
+	public FindProspectDto listAll() {
+		List<ProspectDto> result = new ArrayList<ProspectDto>();
+		List<Prospect> prospects = iProspect.listAllVerifiedByDate();
+		int i = 0;
+		Iterator<Prospect> iter = prospects.iterator();
+		while (i++ < 4 && iter.hasNext()) {
+			Prospect prospect = iter.next();
+			result.add(createDto(prospect));
+		}
+		FindProspectDto resultStruct = new FindProspectDto();
+		resultStruct.setProspects(result);
+		List<PageDto> pages = new ArrayList<PageDto>();
+		PageDto page = new PageDto();
+		pages.add(page);
+		resultStruct.setPages(pages);
+		return resultStruct;
 	}
 
 	@Override
@@ -153,7 +189,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 	}
 
 	@Override
-	public List<ProspectDto> listAllByOwner(String sessionName) {
+	public List<ProspectDto> listAllByOwnerStatus(String sessionName, int status) {
 		List<ProspectDto> result = new ArrayList<ProspectDto>();
 		// Pastikan session valid
 		if (iSessionManager.isValid(sessionName)) {
@@ -161,11 +197,22 @@ public class ProspectManagementImpl implements ProspectManagement {
 			if (session != null) {
 				Member member = iMember.getMemberByUser(session.getUser()
 						.getId());
-				for (Prospect prospect : iProspect.listAllByOwner(member
-						.getId())) {
-					result.add(createDto(prospect));
+				List<Prospect> prospects = null;
+				switch (status) {
+				case 0:
+					prospects = iProspect.listAllByOwner(member.getId());
+					break;
+				case 1:
+				case 2:
+					prospects = iProspect.listAllByOwnerStatus(member.getId(),
+							status - 1);
+					break;
 				}
-				return result;
+				if (prospects != null) {
+					for (Prospect prospect : prospects) {
+						result.add(createDto(prospect));
+					}
+				}
 			}
 		}
 		return result;
@@ -183,6 +230,9 @@ public class ProspectManagementImpl implements ProspectManagement {
 					prospect.setVerified(1);
 					prospect.setVerifiedDate(new Date());
 					prospect.setVerifier(user.getId());
+					//
+					prospect.setCampaignStart(prospect.getVerifiedDate());
+					//
 					iProspect.save(prospect);
 				}
 			}

@@ -13,7 +13,11 @@ public class InvestPlan implements Serializable {
 	double value;
 	Member member;
 	Prospect prospect;
-
+	//
+	int verified;
+	Date verifiedDate;
+	long verifier;
+	//
 	Date timestamp;
 
 	public long getId() {
@@ -62,6 +66,30 @@ public class InvestPlan implements Serializable {
 
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+
+	public int getVerified() {
+		return verified;
+	}
+
+	public void setVerified(int verified) {
+		this.verified = verified;
+	}
+
+	public Date getVerifiedDate() {
+		return verifiedDate;
+	}
+
+	public void setVerifiedDate(Date verifiedDate) {
+		this.verifiedDate = verifiedDate;
+	}
+
+	public long getVerifier() {
+		return verifier;
+	}
+
+	public void setVerifier(long verifier) {
+		this.verifier = verifier;
 	}
 
 }

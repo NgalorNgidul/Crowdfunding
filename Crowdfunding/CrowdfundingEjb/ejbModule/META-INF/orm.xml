@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<entity-mappings version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+<entity-mappings version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
 	<persistence-unit-metadata>
 		<persistence-unit-defaults>
 			<access>FIELD</access>
@@ -16,69 +18,70 @@
 		</named-query>
 		<attributes>
 			<id name="id">
-				<column name="MBR_ID"/>
-				<generated-value strategy="TABLE" generator="crf_member_id"/>
-				<table-generator name="crf_member_id" pk-column-value="crf_member_id" allocation-size="1">
+				<column name="MBR_ID" />
+				<generated-value strategy="TABLE" generator="crf_member_id" />
+				<table-generator name="crf_member_id"
+					pk-column-value="crf_member_id" allocation-size="1">
 				</table-generator>
 			</id>
 			<basic name="name">
-				<column name="MBR_NAME" length="100"/>
+				<column name="MBR_NAME" length="100" />
 			</basic>
 			<basic name="sex">
-				<column name="MBR_SEX"/>
+				<column name="MBR_SEX" />
 			</basic>
 			<basic name="pob">
-				<column name="MBR_POB" length="100"/>
+				<column name="MBR_POB" length="100" />
 			</basic>
 			<basic name="dob">
-				<column name="MBR_DOB"/>
+				<column name="MBR_DOB" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="motherName">
-				<column name="MBR_MOTHERNAME" length="100"/>
+				<column name="MBR_MOTHERNAME" length="100" />
 			</basic>
 			<basic name="idType">
-				<column name="MBR_IDTYPE"/>
+				<column name="MBR_IDTYPE" />
 			</basic>
 			<basic name="idCode">
-				<column name="MBR_IDCODE" length="50"/>
+				<column name="MBR_IDCODE" length="50" />
 			</basic>
 			<basic name="address">
-				<column name="MBR_ADDRESS" length="400"/>
+				<column name="MBR_ADDRESS" length="400" />
 			</basic>
 			<basic name="city">
-				<column name="MBR_CITY" length="100"/>
+				<column name="MBR_CITY" length="100" />
 			</basic>
 			<basic name="province">
-				<column name="MBR_PROVINCE" length="100"/>
+				<column name="MBR_PROVINCE" length="100" />
 			</basic>
 			<basic name="cellPhone">
-				<column name="MBR_CELLPHONE" length="30"/>
+				<column name="MBR_CELLPHONE" length="30" />
 			</basic>
 			<basic name="fixPhone">
-				<column name="MBR_FIXPHONE" length="30"/>
+				<column name="MBR_FIXPHONE" length="30" />
 			</basic>
 			<basic name="email">
-				<column name="MBR_EMAIL" length="100"/>
+				<column name="MBR_EMAIL" length="100" />
 			</basic>
 			<basic name="tsCreate">
-				<column name="MBR_TSCREATE"/>
+				<column name="MBR_TSCREATE" />
 			</basic>
 			<basic name="userCreate">
-				<column name="MBR_USERCREATE"/>
+				<column name="MBR_USERCREATE" />
 			</basic>
 			<basic name="tsEdit">
-				<column name="MBR_TSEDIT"/>
+				<column name="MBR_TSEDIT" />
 			</basic>
 			<basic name="userEdit">
-				<column name="MBR_USEREDIT"/>
+				<column name="MBR_USEREDIT" />
 			</basic>
 			<basic name="registration">
-				<column name="MBR_REGISTRATION"/>
+				<column name="MBR_REGISTRATION" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="zipCode">
-				<column name="MBR_ZIPCODE" length="30"/>
+				<column name="MBR_ZIPCODE" length="30" />
 			</basic>
 		</attributes>
 	</entity>
@@ -100,101 +103,103 @@
 		<named-query name="listAllNonOwner">
 			<query>select x from Prospect x where x.owner.id&lt;&gt;:ownerId</query>
 		</named-query>
+		<named-query name="listAllVerifiedByDate">
+			<query>select x from Prospect x where x.verified=1 and x.campaignEnd&gt;CURRENT_DATE order by x.verifiedDate desc</query>
+		</named-query>
+		<named-query name="listAllVerified">
+			<query>select x from Prospect x where x.verified=1 and x.campaignEnd&gt;CURRENT_DATE order by x.verifiedDate</query>
+		</named-query>
+		<named-query name="listAllByOwnerStatus">
+			<query>select x from Prospect x where x.owner.id=:ownerId and x.verified=:status</query>
+		</named-query>
 		<attributes>
 			<id name="id">
-				<column name="PRP_ID"/>
-				<generated-value strategy="TABLE" generator="crf_prospect_id"/>
-				<table-generator name="crf_prospect_id" pk-column-value="crf_prospect_id" allocation-size="1">
+				<column name="PRP_ID" />
+				<generated-value strategy="TABLE" generator="crf_prospect_id" />
+				<table-generator name="crf_prospect_id"
+					pk-column-value="crf_prospect_id" allocation-size="1">
 				</table-generator>
 			</id>
 			<basic name="title">
-				<column name="PRP_TITLE" length="100"/>
+				<column name="PRP_TITLE" length="100" />
 			</basic>
 			<basic name="shortDescription">
-				<column name="PRP_SHORTDESCRIPTION" length="400"/>
+				<column name="PRP_SHORTDESCRIPTION" length="400" />
 			</basic>
 			<basic name="description">
-				<column name="PRP_DESCRIPTION" length="4000"/>
+				<column name="PRP_DESCRIPTION" length="4000" />
 			</basic>
 			<basic name="smallImage">
-				<column name="PRP_SMALLIMAGE" length="200"/>
+				<column name="PRP_SMALLIMAGE" length="200" />
 			</basic>
 			<basic name="bigImage1">
-				<column name="PRP_BIGIMAGE1" length="200"/>
+				<column name="PRP_BIGIMAGE1" length="200" />
 			</basic>
 			<basic name="bigImage2">
-				<column name="PRP_BIGIMAGE2" length="200"/>
+				<column name="PRP_BIGIMAGE2" length="200" />
 			</basic>
 			<basic name="location">
-				<column name="PRP_LOCATION" length="100"/>
+				<column name="PRP_LOCATION" length="100" />
 			</basic>
 			<basic name="province">
-				<column name="PRP_PROVINCE" length="100"/>
+				<column name="PRP_PROVINCE" length="100" />
 			</basic>
 			<basic name="principal">
-				<column name="PRP_PRINCIPAL"/>
+				<column name="PRP_PRINCIPAL" />
 			</basic>
 			<basic name="rate">
-				<column name="PRP_RATE"/>
+				<column name="PRP_RATE" />
 			</basic>
 			<basic name="tenor">
-				<column name="PRP_TENOR"/>
-			</basic>
-			<basic name="begin" fetch="LAZY">
-				<column name="PRP_BEGIN"/>
-				<temporal>DATE</temporal>
-			</basic>
-			<basic name="end">
-				<column name="PRP_END"/>
-				<temporal>DATE</temporal>
+				<column name="PRP_TENOR" />
 			</basic>
 			<basic name="verified">
-				<column name="PRP_VERIFIED"/>
+				<column name="PRP_VERIFIED" />
 			</basic>
 			<basic name="verifier">
-				<column name="PRP_VERIFIER"/>
+				<column name="PRP_VERIFIER" />
 			</basic>
 			<basic name="verifiedDate">
-				<column name="PRP_VERIFIEDDATE"/>
+				<column name="PRP_VERIFIEDDATE" />
 			</basic>
 			<basic name="userCreate">
-				<column name="PRP_USERCREATE"/>
+				<column name="PRP_USERCREATE" />
 			</basic>
 			<basic name="tsCreate">
-				<column name="PRP_TSCREATE"/>
+				<column name="PRP_TSCREATE" />
 			</basic>
 			<basic name="userEdit">
-				<column name="PRP_USEREDIT"/>
+				<column name="PRP_USEREDIT" />
 			</basic>
 			<basic name="tsEdit">
-				<column name="PRP_TSEDIT"/>
+				<column name="PRP_TSEDIT" />
 			</basic>
 			<basic name="category">
-				<column name="PRP_CATEGORY" length="100"/>
+				<column name="PRP_CATEGORY" length="100" />
 			</basic>
 			<basic name="campaignPeriod">
-				<column name="PRP_CAMPAIGNPERIOD"/>
+				<column name="PRP_CAMPAIGNPERIOD" />
 			</basic>
 			<basic name="campaignStart">
-				<column name="PRP_CAMPAIGNSTART"/>
+				<column name="PRP_CAMPAIGNSTART" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="campaignEnd">
-				<column name="PRP_CAMPAIGNEND"/>
+				<column name="PRP_CAMPAIGNEND" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="city">
-				<column name="PRP_CITY" length="100"/>
+				<column name="PRP_CITY" length="100" />
 			</basic>
 			<basic name="campaignStretchEnd">
-				<column name="PRP_CAMPAIGNSTRETCHEND"/>
+				<column name="PRP_CAMPAIGNSTRETCHEND" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="campaignStretchPeriod">
-				<column name="PRP_CAMPAIGNSTRETCHPERIOD"/>
+				<column name="PRP_CAMPAIGNSTRETCHPERIOD" />
 			</basic>
 			<many-to-one name="owner">
-				<join-column name="MBR_ID" referenced-column-name="MBR_ID"/>
+				<join-column name="MBR_ID" referenced-column-name="MBR_ID" />
 			</many-to-one>
 		</attributes>
 	</entity>
@@ -211,22 +216,22 @@
 			<embedded-id name="id">
 			</embedded-id>
 			<basic name="name">
-				<column name="REG_NAME" length="100"/>
+				<column name="REG_NAME" length="100" />
 			</basic>
 			<basic name="key">
-				<column name="REG_KEY" length="100"/>
+				<column name="REG_KEY" length="100" />
 			</basic>
 			<basic name="status">
-				<column name="REG_STATUS"/>
+				<column name="REG_STATUS" />
 			</basic>
 			<basic name="invest">
-				<column name="REG_INVEST"/>
+				<column name="REG_INVEST" />
 			</basic>
 			<basic name="principal">
-				<column name="REG_PRINCIPAL"/>
+				<column name="REG_PRINCIPAL" />
 			</basic>
 			<basic name="tenor">
-				<column name="REG_TENOR"/>
+				<column name="REG_TENOR" />
 			</basic>
 		</attributes>
 	</entity>
@@ -236,41 +241,58 @@
 		<named-query name="listInvestPlanByMember">
 			<query>select x from InvestPlan x where x.member.id=:memberId</query>
 		</named-query>
+		<named-query name="listInvestPlanByMemberStatus">
+			<query>select x from InvestPlan x where x.member.id=:memberId and x.verified=:status</query>
+		</named-query>
 		<named-query name="listAllInvestPlan">
 			<query>select x from InvestPlan x</query>
 		</named-query>
+		<named-query name="listAllInvestPlanByStatus">
+			<query>select x from InvestPlan x where x.verified=:status</query>
+		</named-query>
 		<attributes>
 			<id name="id">
-				<column name="IVP_ID"/>
-				<generated-value strategy="TABLE" generator="crf_investplan_id"/>
-				<table-generator name="crf_investplan_id" pk-column-value="crf_investplan_id" allocation-size="1">
+				<column name="IVP_ID" />
+				<generated-value strategy="TABLE" generator="crf_investplan_id" />
+				<table-generator name="crf_investplan_id"
+					pk-column-value="crf_investplan_id" allocation-size="1">
 				</table-generator>
 			</id>
 			<basic name="date">
-				<column name="IVP_DATE"/>
+				<column name="IVP_DATE" />
 				<temporal>DATE</temporal>
 			</basic>
 			<basic name="value">
-				<column name="IVP_VALUE"/>
+				<column name="IVP_VALUE" />
 			</basic>
 			<basic name="timestamp">
-				<column name="IVP_TIMESTAMP"/>
+				<column name="IVP_TIMESTAMP" />
+			</basic>
+			<basic name="verifier">
+				<column name="IVP_VERIFIER" />
+			</basic>
+			<basic name="verified">
+				<column name="IVP_VERIFIED" />
+			</basic>
+			<basic name="verifiedDate">
+				<column name="IVP_VERIFIEDDATE" />
+				<temporal>DATE</temporal>
 			</basic>
 			<many-to-one name="member">
-				<join-column name="MBR_ID" referenced-column-name="MBR_ID"/>
+				<join-column name="MBR_ID" referenced-column-name="MBR_ID" />
 			</many-to-one>
 			<one-to-one name="prospect">
-				<join-column name="PRP_ID" referenced-column-name="PRP_ID"/>
+				<join-column name="PRP_ID" referenced-column-name="PRP_ID" />
 			</one-to-one>
 		</attributes>
 	</entity>
 	<embeddable class="net.crowdfunding.intf.model.RegistrationPK">
 		<attributes>
 			<basic name="email">
-				<column name="REG_EMAIL" length="100"/>
+				<column name="REG_EMAIL" length="100" />
 			</basic>
 			<basic name="timestamp">
-				<column name="REG_TIMESTAMP"/>
+				<column name="REG_TIMESTAMP" />
 			</basic>
 		</attributes>
 	</embeddable>

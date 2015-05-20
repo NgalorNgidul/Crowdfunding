@@ -11,6 +11,10 @@ public interface IInvestPlan {
 
 	List<InvestPlan> listByMember(long memberId);
 
+	List<InvestPlan> listByMemberStatus(long memberId, int status);
+
 	List<InvestPlan> listAll();
+
+	List<InvestPlan> listAllByStatus(int status);
 
 }

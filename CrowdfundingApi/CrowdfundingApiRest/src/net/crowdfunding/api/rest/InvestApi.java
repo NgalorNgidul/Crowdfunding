@@ -27,18 +27,29 @@ public class InvestApi {
 	}
 
 	@GET()
-	@Path("/{session}/listAllPlanByOwner")
+	@Path("/{session}/listAllPlanByOwner/{status}")
 	@Produces("application/json")
-	public List<InvestDto> listAllPlanByOwner(
-			@PathParam("session") String session) {
-		return investManagement.listAllPlanByOwner(session);
+	public List<InvestDto> listAllPlanByOwnerStatus(
+			@PathParam("session") String session,
+			@PathParam("status") int status) {
+		return investManagement.listAllPlanByOwnerStatus(session, status);
 	}
 
 	@GET()
-	@Path("/{session}/listAllPlan")
+	@Path("/{session}/listAllPlan/{status}")
 	@Produces("application/json")
-	public List<InvestDto> listAllPlan(@PathParam("session") String session) {
-		return investManagement.listAllPlan(session);
+	public List<InvestDto> listAllPlanByStatus(
+			@PathParam("session") String session,
+			@PathParam("status") int status) {
+		return investManagement.listAllPlanByStatus(session, status);
+	}
+
+	@GET()
+	@Path("/{session}/verify/{planid}")
+	public String verify(@PathParam("session") String sessionName,
+			@PathParam("planid") Long planId) {
+		investManagement.verifyPlan(sessionName, planId);
+		return "0";
 	}
 
 }

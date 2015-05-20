@@ -33,8 +33,6 @@ public class Prospect implements Serializable {
 	int verified;
 	Date verifiedDate;
 	long verifier;
-	Date begin;
-	Date end;
 	//
 	long userCreate;
 	Date tsCreate;
@@ -151,22 +149,6 @@ public class Prospect implements Serializable {
 
 	public void setTenor(int tenor) {
 		this.tenor = tenor;
-	}
-
-	public Date getBegin() {
-		return begin;
-	}
-
-	public void setBegin(Date begin) {
-		this.begin = begin;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
 	}
 
 	public int getVerified() {
