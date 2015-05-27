@@ -83,6 +83,33 @@
 			<basic name="zipCode">
 				<column name="MBR_ZIPCODE" length="30" />
 			</basic>
+			<basic name="sideIncomeDur">
+				<column name="MBR_SIDEINCOMEDUR"/>
+			</basic>
+			<basic name="homeStayDur">
+				<column name="MBR_HOMESTAYDUR"/>
+			</basic>
+			<basic name="expense">
+				<column name="MBR_EXPEMSE"/>
+			</basic>
+			<basic name="sideIncomeLic">
+				<column name="MBR_SIDEINCOMELIC"/>
+			</basic>
+			<basic name="mainIncome">
+				<column name="MBR_MAININCOME"/>
+			</basic>
+			<basic name="otherExpense">
+				<column name="MBR_OTHEREXPENSE"/>
+			</basic>
+			<basic name="taxNr">
+				<column name="MBR_TAXNR" length="100"/>
+			</basic>
+			<basic name="sideIncome">
+				<column name="MBR_SIDEINCOME"/>
+			</basic>
+			<basic name="home">
+				<column name="MBR_HOME"/>
+			</basic>
 		</attributes>
 	</entity>
 	<entity class="net.crowdfunding.intf.model.Prospect">

@@ -14,8 +14,9 @@ public class Member implements Serializable {
 	int sex;
 	String pob;
 	Date dob;
-	String idCode;
 	int idType;
+	String idCode;
+	String taxNr;
 	String address;
 	String city;
 	String zipCode;
@@ -25,6 +26,17 @@ public class Member implements Serializable {
 	String cellPhone;
 	Date registration;
 	String motherName;
+
+	double mainIncome;
+	double sideIncome;
+	int sideIncomeLic;
+	int sideIncomeDur;
+
+	int home;
+	int homeStayDur;
+
+	double expense;
+	double otherExpense;
 
 	Date tsCreate;
 	long userCreate;
@@ -189,6 +201,78 @@ public class Member implements Serializable {
 
 	public void setZipCode(String zipCode) {
 		this.zipCode = zipCode;
+	}
+
+	public String getTaxNr() {
+		return taxNr;
+	}
+
+	public void setTaxNr(String taxNr) {
+		this.taxNr = taxNr;
+	}
+
+	public double getMainIncome() {
+		return mainIncome;
+	}
+
+	public void setMainIncome(double mainIncome) {
+		this.mainIncome = mainIncome;
+	}
+
+	public double getSideIncome() {
+		return sideIncome;
+	}
+
+	public void setSideIncome(double sideIncome) {
+		this.sideIncome = sideIncome;
+	}
+
+	public int getSideIncomeLic() {
+		return sideIncomeLic;
+	}
+
+	public void setSideIncomeLic(int sideIncomeLic) {
+		this.sideIncomeLic = sideIncomeLic;
+	}
+
+	public int getSideIncomeDur() {
+		return sideIncomeDur;
+	}
+
+	public void setSideIncomeDur(int sideIncomeDur) {
+		this.sideIncomeDur = sideIncomeDur;
+	}
+
+	public int getHome() {
+		return home;
+	}
+
+	public void setHome(int home) {
+		this.home = home;
+	}
+
+	public int getHomeStayDur() {
+		return homeStayDur;
+	}
+
+	public void setHomeStayDur(int homeStayDur) {
+		this.homeStayDur = homeStayDur;
+	}
+
+	public double getExpense() {
+		return expense;
+	}
+
+	public void setExpense(double expense) {
+		this.expense = expense;
+	}
+
+	public double getOtherExpense() {
+		return otherExpense;
+	}
+
+	public void setOtherExpense(double otherExpense) {
+		this.otherExpense = otherExpense;
 	}
 
 }
