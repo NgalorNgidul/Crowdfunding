@@ -39,6 +39,16 @@ public class MemberManagementImpl implements MemberManagement {
 		member.setEmail(dto.getEmail());
 		member.setFixPhone(dto.getFixPhone());
 		member.setCellPhone(dto.getCellPhone());
+		member.setTaxNr(dto.getTaxNr());
+		member.setHome(dto.getHome());
+		member.setHomeStayDur(dto.getHomeStayDur());
+		member.setMainIncome(dto.getMainIncome());
+		member.setSideIncome(dto.getSideIncome());
+		member.setSideIncomeType(dto.getSideIncomeType());
+		member.setVehicle(dto.getVehicle());
+		member.setVehicleProduction(dto.getVehicleProduction());
+		member.setExpense(dto.getExpense());
+		member.setOtherExpense(dto.getOtherExpense());
 	}
 	@Override
 	public Long save(MemberDto dto) {

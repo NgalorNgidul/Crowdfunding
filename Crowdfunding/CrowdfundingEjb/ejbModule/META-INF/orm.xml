@@ -90,7 +90,7 @@
 				<column name="MBR_HOMESTAYDUR"/>
 			</basic>
 			<basic name="expense">
-				<column name="MBR_EXPEMSE"/>
+				<column name="MBR_EXPENSE"/>
 			</basic>
 			<basic name="sideIncomeLic">
 				<column name="MBR_SIDEINCOMELIC"/>
@@ -109,6 +109,18 @@
 			</basic>
 			<basic name="home">
 				<column name="MBR_HOME"/>
+			</basic>
+			<basic name="sideIncomeType">
+				<column name="MBR_SIDEINCOMETYPE"/>
+			</basic>
+			<basic name="vehicle">
+				<column name="MBR_VEHICLE"/>
+			</basic>
+			<basic name="vehicleProduction">
+				<column name="MBR_VEHICLEPRODUCTION"/>
+			</basic>
+			<basic name="mainIncomeType">
+				<column name="MBR_MAININCOMETYPE"/>
 			</basic>
 		</attributes>
 	</entity>

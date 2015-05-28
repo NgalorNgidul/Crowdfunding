@@ -29,14 +29,19 @@ public class Member implements Serializable {
 
 	double mainIncome;
 	double sideIncome;
+	int mainIncomeType;
+	int sideIncomeType;
 	int sideIncomeLic;
 	int sideIncomeDur;
+
+	double expense;
+	double otherExpense;
 
 	int home;
 	int homeStayDur;
 
-	double expense;
-	double otherExpense;
+	int vehicle;
+	int vehicleProduction;
 
 	Date tsCreate;
 	long userCreate;
@@ -227,6 +232,14 @@ public class Member implements Serializable {
 		this.sideIncome = sideIncome;
 	}
 
+	public int getSideIncomeType() {
+		return sideIncomeType;
+	}
+
+	public void setSideIncomeType(int sideIncomeType) {
+		this.sideIncomeType = sideIncomeType;
+	}
+
 	public int getSideIncomeLic() {
 		return sideIncomeLic;
 	}
@@ -273,6 +286,30 @@ public class Member implements Serializable {
 
 	public void setOtherExpense(double otherExpense) {
 		this.otherExpense = otherExpense;
+	}
+
+	public int getVehicle() {
+		return vehicle;
+	}
+
+	public void setVehicle(int vehicle) {
+		this.vehicle = vehicle;
+	}
+
+	public int getVehicleProduction() {
+		return vehicleProduction;
+	}
+
+	public void setVehicleProduction(int vehicleProduction) {
+		this.vehicleProduction = vehicleProduction;
+	}
+
+	public int getMainIncomeType() {
+		return mainIncomeType;
+	}
+
+	public void setMainIncomeType(int mainIncomeType) {
+		this.mainIncomeType = mainIncomeType;
 	}
 
 }
