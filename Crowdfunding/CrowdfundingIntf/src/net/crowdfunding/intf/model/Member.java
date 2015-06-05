@@ -17,6 +17,7 @@ public class Member implements Serializable {
 	int idType;
 	String idCode;
 	String taxNr;
+	int education;
 	String address;
 	String city;
 	String zipCode;
@@ -310,6 +311,14 @@ public class Member implements Serializable {
 
 	public void setMainIncomeType(int mainIncomeType) {
 		this.mainIncomeType = mainIncomeType;
+	}
+
+	public int getEducation() {
+		return education;
+	}
+
+	public void setEducation(int education) {
+		this.education = education;
 	}
 
 }

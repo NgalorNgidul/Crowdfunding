@@ -122,6 +122,9 @@
 			<basic name="mainIncomeType">
 				<column name="MBR_MAININCOMETYPE"/>
 			</basic>
+			<basic name="education">
+				<column name="MBR_EDUCATION"/>
+			</basic>
 		</attributes>
 	</entity>
 	<entity class="net.crowdfunding.intf.model.Prospect">
