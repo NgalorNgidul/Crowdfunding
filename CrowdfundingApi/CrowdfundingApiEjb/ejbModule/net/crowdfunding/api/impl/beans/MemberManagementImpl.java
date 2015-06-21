@@ -25,7 +25,7 @@ public class MemberManagementImpl implements MemberManagement {
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/MemberImpl")
 	IMember iMember;
 
-	private void copyFromDto(MemberDto dto,Member member){
+	private void copyFromDto(MemberDto dto, Member member) {
 		member.setName(dto.getName());
 		member.setPob(dto.getPob());
 		member.setDob(dto.getDob());
@@ -50,12 +50,13 @@ public class MemberManagementImpl implements MemberManagement {
 		member.setExpense(dto.getExpense());
 		member.setOtherExpense(dto.getOtherExpense());
 	}
+
 	@Override
 	public Long save(MemberDto dto) {
 		if (iSessionManager.isValid(dto.getSession())) {
 			Session session = iSessionManager.getSession(dto.getSession());
 			if (session != null) {
-				if (dto.getId()==0){
+				if (dto.getId() == 0) {
 					Member member = new Member();
 					copyFromDto(dto, member);
 					member.setRegistration(new Date());
@@ -64,9 +65,9 @@ public class MemberManagementImpl implements MemberManagement {
 					member.setUserEdit(member.getUserCreate());
 					member.setTsEdit(member.getTsCreate());
 					iMember.save(member);
-				}else {
+				} else {
 					Member member = iMember.get(dto.getId());
-					if (session.getUser().getId()==member.getUserCreate()){
+					if (session.getUser().getId() == member.getUserCreate()) {
 						copyFromDto(dto, member);
 						member.setUserEdit(session.getUser().getId());
 						member.setTsEdit(new Date());
@@ -77,7 +78,7 @@ public class MemberManagementImpl implements MemberManagement {
 		}
 		return 0L;
 	}
-	
+
 	@Override
 	public Member getBySession(String sessionName) {
 		if (iSessionManager.isValid(sessionName)) {
@@ -85,10 +86,11 @@ public class MemberManagementImpl implements MemberManagement {
 			if (session != null) {
 				Member member = iMember.getMemberByUser(session.getUser()
 						.getId());
-				return member;
+				if (member!=null) return member;
 			}
 		}
-		return null;
+		//
+		return new Member();
 	}
 
 	@Override

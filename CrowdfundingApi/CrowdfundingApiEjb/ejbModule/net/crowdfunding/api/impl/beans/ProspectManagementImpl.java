@@ -49,7 +49,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setPrincipal(prospect.getPrincipal());
 		dto.setTenor(prospect.getTenor());
 		// FIXME: jumlah yang terkumpul masih hardcoded
-		dto.setPledged(14000000);
+		dto.setPledged(14000000D);
 		Double dPersen = dto.getPledged() * 100 / dto.getPrincipal();
 		Integer iPersen = dPersen.intValue();
 		dto.setPledgedPersentage(iPersen);

@@ -25,23 +25,28 @@ public class ProspectDto implements Serializable {
 	String phone;
 	String location;
 	String province;
-	double principal;
-	double rate;
-	int tenor;
-	int campaignPeriod;
-	int pledgedCount;
-	double pledged;
-	int pledgedPersentage;
+	Double principal;
+	Double rate;
+	Integer tenor;
+	Integer campaignPeriod;
+	Integer pledgedCount;
+	Double pledged;
+	Integer pledgedPersentage;
 	Date start;
 	Date end;
-	int remainingDay;
+	Integer remainingDay;
 
-	public String getSession() {
-		return session;
-	}
-
-	public void setSession(String session) {
-		this.session = session;
+	public ProspectDto() {
+		id = 0L;
+		ownerId = 0L;
+		principal = 0D;
+		rate = 0D;
+		tenor = 0;
+		campaignPeriod = 0;
+		pledgedCount = 0;
+		pledged = 0D;
+		pledgedPersentage = 0;
+		remainingDay = 0;
 	}
 
 	public Long getId() {
@@ -52,12 +57,12 @@ public class ProspectDto implements Serializable {
 		this.id = id;
 	}
 
-	public Long getOwnerId() {
-		return ownerId;
+	public String getSession() {
+		return session;
 	}
 
-	public void setOwnerId(Long ownerId) {
-		this.ownerId = ownerId;
+	public void setSession(String session) {
+		this.session = session;
 	}
 
 	public String getSmallImage() {
@@ -116,84 +121,12 @@ public class ProspectDto implements Serializable {
 		this.ownerName = ownerName;
 	}
 
-	public String getLocation() {
-		return location;
+	public Long getOwnerId() {
+		return ownerId;
 	}
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
-
-	public String getProvince() {
-		return province;
-	}
-
-	public void setProvince(String province) {
-		this.province = province;
-	}
-
-	public double getPrincipal() {
-		return principal;
-	}
-
-	public void setPrincipal(double principal) {
-		this.principal = principal;
-	}
-
-	public double getPledged() {
-		return pledged;
-	}
-
-	public void setPledged(double pledged) {
-		this.pledged = pledged;
-	}
-
-	public int getPledgedPersentage() {
-		return pledgedPersentage;
-	}
-
-	public void setPledgedPersentage(int pledgedPersentage) {
-		this.pledgedPersentage = pledgedPersentage;
-	}
-
-	public double getRate() {
-		return rate;
-	}
-
-	public void setRate(double rate) {
-		this.rate = rate;
-	}
-
-	public int getTenor() {
-		return tenor;
-	}
-
-	public void setTenor(int tenor) {
-		this.tenor = tenor;
-	}
-
-	public Date getStart() {
-		return start;
-	}
-
-	public void setStart(Date start) {
-		this.start = start;
-	}
-
-	public Date getEnd() {
-		return end;
-	}
-
-	public void setEnd(Date end) {
-		this.end = end;
-	}
-
-	public int getRemainingDay() {
-		return remainingDay;
-	}
-
-	public void setRemainingDay(int remainingDay) {
-		this.remainingDay = remainingDay;
+	public void setOwnerId(Long ownerId) {
+		this.ownerId = ownerId;
 	}
 
 	public String getEmail() {
@@ -236,20 +169,100 @@ public class ProspectDto implements Serializable {
 		this.phone = phone;
 	}
 
-	public int getPledgedCount() {
-		return pledgedCount;
+	public String getLocation() {
+		return location;
 	}
 
-	public void setPledgedCount(int pledgedCount) {
-		this.pledgedCount = pledgedCount;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
-	public int getCampaignPeriod() {
+	public String getProvince() {
+		return province;
+	}
+
+	public void setProvince(String province) {
+		this.province = province;
+	}
+
+	public Double getPrincipal() {
+		return principal;
+	}
+
+	public void setPrincipal(Double principal) {
+		this.principal = principal;
+	}
+
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
+	public Integer getTenor() {
+		return tenor;
+	}
+
+	public void setTenor(Integer tenor) {
+		this.tenor = tenor;
+	}
+
+	public Integer getCampaignPeriod() {
 		return campaignPeriod;
 	}
 
-	public void setCampaignPeriod(int campaignPeriod) {
+	public void setCampaignPeriod(Integer campaignPeriod) {
 		this.campaignPeriod = campaignPeriod;
+	}
+
+	public Integer getPledgedCount() {
+		return pledgedCount;
+	}
+
+	public void setPledgedCount(Integer pledgedCount) {
+		this.pledgedCount = pledgedCount;
+	}
+
+	public Double getPledged() {
+		return pledged;
+	}
+
+	public void setPledged(Double pledged) {
+		this.pledged = pledged;
+	}
+
+	public Integer getPledgedPersentage() {
+		return pledgedPersentage;
+	}
+
+	public void setPledgedPersentage(Integer pledgedPersentage) {
+		this.pledgedPersentage = pledgedPersentage;
+	}
+
+	public Date getStart() {
+		return start;
+	}
+
+	public void setStart(Date start) {
+		this.start = start;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
+	}
+
+	public Integer getRemainingDay() {
+		return remainingDay;
+	}
+
+	public void setRemainingDay(Integer remainingDay) {
+		this.remainingDay = remainingDay;
 	}
 
 }
