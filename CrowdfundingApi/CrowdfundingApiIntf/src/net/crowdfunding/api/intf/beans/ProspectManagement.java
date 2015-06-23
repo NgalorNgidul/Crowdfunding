@@ -3,6 +3,7 @@ package net.crowdfunding.api.intf.beans;
 import java.util.List;
 
 import net.crowdfunding.api.intf.dto.FindProspectDto;
+import net.crowdfunding.api.intf.dto.InformationDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 
 public interface ProspectManagement {
@@ -25,4 +26,8 @@ public interface ProspectManagement {
 	List<ProspectDto> listAllByOwnerStatus(String session, int status);
 
 	void approve(String session, Long prospectId);
+
+	List<String> listCategories();
+
+	List<InformationDto> listCategoriesInfo();
 }

@@ -11,6 +11,7 @@ import javax.ejb.Stateless;
 
 import net.crowdfunding.api.intf.beans.ProspectManagement;
 import net.crowdfunding.api.intf.dto.FindProspectDto;
+import net.crowdfunding.api.intf.dto.InformationDto;
 import net.crowdfunding.api.intf.dto.PageDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 import net.crowdfunding.intf.beans.IMember;
@@ -237,6 +238,30 @@ public class ProspectManagementImpl implements ProspectManagement {
 				}
 			}
 		}
+	}
+
+	@Override
+	public List<String> listCategories() {
+		List<String> categories = new ArrayList<String>();
+		categories.add("Kendaraan");
+		categories.add("Rumah baru");
+		categories.add("Renovasi");
+		categories.add("Biaya sekolah");
+		categories.add("Biaya pengobatan");
+		categories.add("Bayar kartu kredit");
+		return categories;
+	}
+
+	@Override
+	public List<InformationDto> listCategoriesInfo() {
+		List<InformationDto> categories = new ArrayList<InformationDto>();
+		categories.add(new InformationDto("Kendaraan"));
+		categories.add(new InformationDto("Rumah baru"));
+		categories.add(new InformationDto("Renovasi"));
+		categories.add(new InformationDto("Biaya sekolah"));
+		categories.add(new InformationDto("Biaya pengobatan"));
+		categories.add(new InformationDto("Bayar kartu kredit"));
+		return categories;
 	}
 
 }

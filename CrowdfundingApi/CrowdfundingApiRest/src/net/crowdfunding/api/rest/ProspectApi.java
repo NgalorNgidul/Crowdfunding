@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 
 import net.crowdfunding.api.intf.beans.ProspectManagement;
 import net.crowdfunding.api.intf.dto.FindProspectDto;
+import net.crowdfunding.api.intf.dto.InformationDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
 
 @Path("/prospect")
@@ -93,6 +94,20 @@ public class ProspectApi {
 			@PathParam("prospectId") Long prospectId) {
 		prospectManagement.approve(session, prospectId);
 		return "0";
+	}
+
+	@GET()
+	@Path("/categories")
+	@Produces("application/json")
+	public List<String> listCategories() {
+		return prospectManagement.listCategories();
+	}
+
+	@GET()
+	@Path("/categories/info")
+	@Produces("application/json")
+	public List<InformationDto> categoriesInfo() {
+		return prospectManagement.listCategoriesInfo();
 	}
 
 }
