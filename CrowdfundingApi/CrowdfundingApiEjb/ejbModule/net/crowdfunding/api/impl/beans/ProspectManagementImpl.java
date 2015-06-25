@@ -24,6 +24,8 @@ import org.joda.time.Days;
 import org.simbiosis.system.api.bean.ISessionManager;
 import org.simbiosis.system.model.Session;
 import org.simbiosis.system.model.User;
+import org.simbiosis.systemui.api.bean.IConfigManager;
+import org.simbiosis.systemui.api.dto.UiConfigDto;
 
 @Stateless
 @Remote(ProspectManagement.class)
@@ -35,14 +37,17 @@ public class ProspectManagementImpl implements ProspectManagement {
 	IMember iMember;
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/ProspectImpl")
 	IProspect iProspect;
+	@EJB(lookup = "java:global/SystemUiApi/SystemUiApiEjb/ConfigManager")
+	IConfigManager configManager;
 
 	ProspectDto createDto(Prospect prospect) {
+		UiConfigDto config = configManager.getConfig();
 		//
 		ProspectDto dto = new ProspectDto();
 		dto.setId(prospect.getId());
 		dto.setTitle(prospect.getTitle());
-		dto.setSmallImage("http://app.croowd.co.id/resources/getProspectImage?type=small&id="
-				+ dto.getId());
+		dto.setSmallImage("http://" + config.getSimbiosisApi()
+				+ "/resources/getProspectImage?type=small&id=" + dto.getId());
 		dto.setShortDescription(prospect.getShortDescription());
 		dto.setDescription(prospect.getDescription());
 		dto.setLocation(prospect.getLocation());
@@ -65,6 +70,11 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setCity(owner.getCity());
 		dto.setZipCode("");
 		dto.setPhone(owner.getCellPhone());
+		if (prospect.getVerified()==1){
+			dto.setStatus(1);
+		} else {
+			dto.setStatus(0);
+		}
 		return dto;
 	}
 

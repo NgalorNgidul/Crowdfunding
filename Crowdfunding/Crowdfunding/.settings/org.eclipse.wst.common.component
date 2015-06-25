@@ -25,5 +25,8 @@
         <dependent-module archiveName="SystemApiIntf.jar" deploy-path="/lib" handle="module:/resource/SystemApiIntf/SystemApiIntf">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="SystemUiApiIntf.jar" deploy-path="/lib" handle="module:/resource/SystemUiApiIntf/SystemUiApiIntf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
     </wb-module>
 </project-modules>

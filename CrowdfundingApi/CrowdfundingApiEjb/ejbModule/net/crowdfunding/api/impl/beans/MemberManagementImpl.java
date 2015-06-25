@@ -86,7 +86,8 @@ public class MemberManagementImpl implements MemberManagement {
 			if (session != null) {
 				Member member = iMember.getMemberByUser(session.getUser()
 						.getId());
-				if (member!=null) return member;
+				if (member != null)
+					return member;
 			}
 		}
 		//

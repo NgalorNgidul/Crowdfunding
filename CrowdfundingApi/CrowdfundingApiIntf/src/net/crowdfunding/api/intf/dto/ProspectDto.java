@@ -35,6 +35,7 @@ public class ProspectDto implements Serializable {
 	Date start;
 	Date end;
 	Integer remainingDay;
+	int status;
 
 	public ProspectDto() {
 		id = 0L;
@@ -263,6 +264,14 @@ public class ProspectDto implements Serializable {
 
 	public void setRemainingDay(Integer remainingDay) {
 		this.remainingDay = remainingDay;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }
