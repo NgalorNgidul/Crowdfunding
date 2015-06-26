@@ -16,7 +16,8 @@ public class RegistrationDto implements Serializable {
 	private String city;
 	private String zipCode;
 	private String province;
-	private String phone;
+	private String fixPhone;
+	private String cellPhone;
 	private String password;
 	private Integer invest;
 	private Double principal;
@@ -116,12 +117,20 @@ public class RegistrationDto implements Serializable {
 		this.province = province;
 	}
 
-	public String getPhone() {
-		return phone;
+	public String getFixPhone() {
+		return fixPhone;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setFixPhone(String fixPhone) {
+		this.fixPhone = fixPhone;
+	}
+
+	public String getCellPhone() {
+		return cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 	public String getPassword() {

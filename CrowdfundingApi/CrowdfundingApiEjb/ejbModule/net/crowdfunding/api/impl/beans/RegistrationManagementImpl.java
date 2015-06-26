@@ -175,6 +175,8 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			member.setAddress(dto.getAddress());
 			member.setCity(dto.getCity());
 			member.setProvince(dto.getProvince());
+			member.setFixPhone(dto.getFixPhone());
+			member.setCellPhone(dto.getCellPhone());
 			member.setTsCreate(today);
 			member.setUserCreate(user.getId());
 			iMember.save(member);
