@@ -17,4 +17,6 @@ public interface IInvestPlan {
 
 	List<InvestPlan> listAllByStatus(int status);
 
+	List<InvestPlan> listByProspect(long prospect);
+
 }

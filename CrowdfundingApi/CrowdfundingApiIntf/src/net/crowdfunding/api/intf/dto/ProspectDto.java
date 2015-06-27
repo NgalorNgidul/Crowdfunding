@@ -22,6 +22,8 @@ public class ProspectDto implements Serializable {
 	String address;
 	String city;
 	String zipCode;
+	String fixPhone;
+	String cellPhone;
 	String phone;
 	String location;
 	String province;
@@ -272,6 +274,22 @@ public class ProspectDto implements Serializable {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+
+	public String getFixPhone() {
+		return fixPhone;
+	}
+
+	public void setFixPhone(String fixPhone) {
+		this.fixPhone = fixPhone;
+	}
+
+	public String getCellPhone() {
+		return cellPhone;
+	}
+
+	public void setCellPhone(String cellPhone) {
+		this.cellPhone = cellPhone;
 	}
 
 }

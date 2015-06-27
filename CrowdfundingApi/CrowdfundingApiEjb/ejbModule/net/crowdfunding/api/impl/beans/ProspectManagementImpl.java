@@ -14,8 +14,10 @@ import net.crowdfunding.api.intf.dto.FindProspectDto;
 import net.crowdfunding.api.intf.dto.InformationDto;
 import net.crowdfunding.api.intf.dto.PageDto;
 import net.crowdfunding.api.intf.dto.ProspectDto;
+import net.crowdfunding.intf.beans.IInvestPlan;
 import net.crowdfunding.intf.beans.IMember;
 import net.crowdfunding.intf.beans.IProspect;
+import net.crowdfunding.intf.model.InvestPlan;
 import net.crowdfunding.intf.model.Member;
 import net.crowdfunding.intf.model.Prospect;
 
@@ -37,6 +39,8 @@ public class ProspectManagementImpl implements ProspectManagement {
 	IMember iMember;
 	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/ProspectImpl")
 	IProspect iProspect;
+	@EJB(lookup = "java:global/Crowdfunding/CrowdfundingEjb/InvestPlanImpl")
+	IInvestPlan iInvestPlan;
 	@EJB(lookup = "java:global/SystemUiApi/SystemUiApiEjb/ConfigManager")
 	IConfigManager configManager;
 
@@ -54,8 +58,15 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setProvince(prospect.getProvince());
 		dto.setPrincipal(prospect.getPrincipal());
 		dto.setTenor(prospect.getTenor());
-		// FIXME: jumlah yang terkumpul masih hardcoded
-		dto.setPledged(14000000D);
+		dto.setCampaignPeriod(prospect.getCampaignPeriod());
+		// Cari invest plan
+		List<InvestPlan> invests = iInvestPlan.listByProspect(prospect.getId());
+		dto.setPledgedCount(invests.size());
+		Double dPledged = 0D;
+		for (InvestPlan invest : invests) {
+			dPledged += invest.getValue();
+		}
+		dto.setPledged(dPledged);
 		Double dPersen = dto.getPledged() * 100 / dto.getPrincipal();
 		Integer iPersen = dPersen.intValue();
 		dto.setPledgedPersentage(iPersen);
@@ -68,9 +79,10 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setAddress(owner.getAddress());
 		dto.setEmail(owner.getEmail());
 		dto.setCity(owner.getCity());
-		dto.setZipCode("");
+		dto.setZipCode(owner.getZipCode());
+		dto.setProvince(owner.getProvince());
 		dto.setPhone(owner.getCellPhone());
-		if (prospect.getVerified()==1){
+		if (prospect.getVerified() == 1) {
 			dto.setStatus(1);
 		} else {
 			dto.setStatus(0);
@@ -243,6 +255,9 @@ public class ProspectManagementImpl implements ProspectManagement {
 					prospect.setVerifier(user.getId());
 					//
 					prospect.setCampaignStart(prospect.getVerifiedDate());
+					DateTime dt = new DateTime(prospect.getCampaignStart());
+					prospect.setCampaignEnd(dt.plusDays(
+							prospect.getCampaignPeriod()).toDate());
 					//
 					iProspect.save(prospect);
 				}

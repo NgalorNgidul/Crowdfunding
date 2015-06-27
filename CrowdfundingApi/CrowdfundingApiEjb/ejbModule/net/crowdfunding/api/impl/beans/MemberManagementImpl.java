@@ -36,6 +36,7 @@ public class MemberManagementImpl implements MemberManagement {
 		member.setAddress(dto.getAddress());
 		member.setCity(dto.getCity());
 		member.setZipCode(dto.getZipCode());
+		member.setProvince(dto.getProvince());
 		member.setEmail(dto.getEmail());
 		member.setFixPhone(dto.getFixPhone());
 		member.setCellPhone(dto.getCellPhone());

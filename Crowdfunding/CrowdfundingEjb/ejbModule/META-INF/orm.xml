@@ -292,6 +292,9 @@
 		<named-query name="listAllInvestPlanByStatus">
 			<query>select x from InvestPlan x where x.verified=:status</query>
 		</named-query>
+		<named-query name="listInvestPlanByProspect">
+			<query>select x from InvestPlan x where x.prospect.id=:prospectId</query>
+		</named-query>
 		<attributes>
 			<id name="id">
 				<column name="IVP_ID" />

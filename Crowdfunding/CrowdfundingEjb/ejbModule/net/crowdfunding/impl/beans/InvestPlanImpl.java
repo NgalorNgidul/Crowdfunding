@@ -45,14 +45,13 @@ public class InvestPlanImpl implements IInvestPlan {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<InvestPlan> listByMemberStatus(long memberId,int status) {
+	public List<InvestPlan> listByMemberStatus(long memberId, int status) {
 		Query qry = em.createNamedQuery("listInvestPlanByMemberStatus");
 		qry.setParameter("memberId", memberId);
 		qry.setParameter("status", status);
 		List<InvestPlan> result = qry.getResultList();
 		return result;
 	}
-
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -67,6 +66,15 @@ public class InvestPlanImpl implements IInvestPlan {
 	public List<InvestPlan> listAllByStatus(int status) {
 		Query qry = em.createNamedQuery("listAllInvestPlanByStatus");
 		qry.setParameter("status", status);
+		List<InvestPlan> result = qry.getResultList();
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<InvestPlan> listByProspect(long prospect) {
+		Query qry = em.createNamedQuery("listInvestPlanByProspect");
+		qry.setParameter("prospectId", prospect);
 		List<InvestPlan> result = qry.getResultList();
 		return result;
 	}
