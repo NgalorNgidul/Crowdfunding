@@ -38,8 +38,8 @@ public class ProspectApi {
 	@GET()
 	@Path("/listall/{startid}")
 	@Produces("application/json")
-	public FindProspectDto listAll() {
-		return prospectManagement.listAll();
+	public FindProspectDto listAll(@PathParam("startid") Long startId) {
+		return prospectManagement.listAll(startId);
 	}
 
 	@GET()
@@ -85,7 +85,7 @@ public class ProspectApi {
 	public List<ProspectDto> listAllByOwnerStatus(
 			@PathParam("session") String session,
 			@PathParam("status") int status) {
-		return prospectManagement.listAllByOwnerStatus(session,status);
+		return prospectManagement.listAllByOwnerStatus(session, status);
 	}
 
 	@GET()

@@ -1,6 +1,8 @@
 package net.crowdfunding.api.impl.beans;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -145,22 +147,43 @@ public class ProspectManagementImpl implements ProspectManagement {
 	}
 
 	@Override
-	public FindProspectDto listAll() {
-		List<ProspectDto> result = new ArrayList<ProspectDto>();
+	public FindProspectDto listAll(long idMin) {
+		// Ambil data
 		List<Prospect> prospects = iProspect.listAllVerifiedByDate();
-		int i = 0;
-		Iterator<Prospect> iter = prospects.iterator();
-		while (i++ < 4 && iter.hasNext()) {
-			Prospect prospect = iter.next();
-			result.add(createDto(prospect));
-		}
-		FindProspectDto resultStruct = new FindProspectDto();
-		resultStruct.setProspects(result);
+		Collections.sort(prospects, new Comparator<Prospect>() {
+
+			@Override
+			public int compare(Prospect o1, Prospect o2) {
+				Long l1 = o1.getId();
+				Long l2 = o2.getId();
+				return l1.compareTo(l2);
+			}
+		});
+		// Tampilkan
+		int maxPerSite = 6;
+		List<ProspectDto> prospectList = new ArrayList<ProspectDto>();
 		List<PageDto> pages = new ArrayList<PageDto>();
-		PageDto page = new PageDto();
-		pages.add(page);
-		resultStruct.setPages(pages);
-		return resultStruct;
+		int i = 0, index = 0;
+		for (Prospect prospect : prospects) {
+			if (index < maxPerSite && prospect.getId() >= idMin) {
+				prospectList.add(createDto(prospect));
+				//
+				index++;
+			}
+			//
+			if (i % maxPerSite == 0) {
+				PageDto page = new PageDto();
+				page.setPage((i / maxPerSite) + 1);
+				page.setStart(i > 0 ? prospect.getId() : 0);
+				pages.add(page);
+			}
+			//
+			i++;
+		}
+		FindProspectDto result = new FindProspectDto();
+		result.setProspects(prospectList);
+		result.setPages(pages);
+		return result;
 	}
 
 	@Override

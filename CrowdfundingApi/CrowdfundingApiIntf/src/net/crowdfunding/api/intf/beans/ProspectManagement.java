@@ -15,7 +15,7 @@ public interface ProspectManagement {
 
 	List<ProspectDto> listNewcomer();
 
-	FindProspectDto listAll();
+	FindProspectDto listAll(long idMin);
 
 	List<ProspectDto> find(String textKey);
 
