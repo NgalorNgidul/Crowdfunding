@@ -63,12 +63,16 @@ public class ProspectManagementImpl implements ProspectManagement {
 		dto.setCampaignPeriod(prospect.getCampaignPeriod());
 		// Cari invest plan
 		List<InvestPlan> invests = iInvestPlan.listByProspect(prospect.getId());
-		dto.setPledgedCount(invests.size());
 		Double dPledged = 0D;
+		int pledgedCount = 0;
 		for (InvestPlan invest : invests) {
-			dPledged += invest.getValue();
+			if (invest.getVerified() == 1) {
+				dPledged += invest.getValue();
+				pledgedCount++;
+			}
 		}
 		dto.setPledged(dPledged);
+		dto.setPledgedCount(pledgedCount);
 		Double dPersen = dto.getPledged() * 100 / dto.getPrincipal();
 		Integer iPersen = dPersen.intValue();
 		dto.setPledgedPersentage(iPersen);
@@ -96,18 +100,22 @@ public class ProspectManagementImpl implements ProspectManagement {
 	public Long save(ProspectDto dto) {
 		if (iSessionManager.isValid(dto.getSession())) {
 			Session session = iSessionManager.getSession(dto.getSession());
-			Prospect prospect = new Prospect();
-			if (dto.getId() != 0) {
+			Prospect prospect = null;
+			if (dto.getId() == 0) {
+				prospect = new Prospect();
 				prospect.setId(dto.getId());
+				Member member = iMember.getMemberByUser(session.getUser()
+						.getId());
+				prospect.setOwner(member);
+			} else {
+				prospect = iProspect.get(dto.getId());
 			}
-			Member member = iMember.getMemberByUser(session.getUser().getId());
-			prospect.setOwner(member);
 			prospect.setTitle(dto.getTitle());
 			prospect.setPrincipal(dto.getPrincipal());
 			prospect.setTenor(dto.getTenor());
 			prospect.setCategory(dto.getCategory());
-			prospect.setDescription(dto.getDescription());
 			prospect.setShortDescription(dto.getShortDescription());
+			prospect.setDescription(dto.getDescription());
 			prospect.setLocation(dto.getLocation());
 			prospect.setCampaignPeriod(dto.getCampaignPeriod());
 			return iProspect.save(prospect);
