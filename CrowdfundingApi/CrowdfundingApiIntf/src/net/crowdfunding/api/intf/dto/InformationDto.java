@@ -21,6 +21,11 @@ public class InformationDto implements Serializable {
 		iInfo = 0;
 	}
 
+	public InformationDto(String name, int number) {
+		this.name = name;
+		iInfo = number;
+	}
+
 	public String getName() {
 		return name;
 	}

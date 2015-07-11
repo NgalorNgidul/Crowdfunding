@@ -97,4 +97,21 @@ public class ProspectImpl implements IProspect {
 		return result;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Prospect> listAllVerifiedByCat(String category) {
+		Query qry = em.createNamedQuery("listAllVerifiedByCat");
+		qry.setParameter("category", category.toLowerCase());
+		List<Prospect> result = qry.getResultList();
+		return result;
+	}
+
+	@Override
+	public int countByCategory(String category) {
+		Query qry = em.createNamedQuery("countProspectByCat");
+		qry.setParameter("category", category.toLowerCase());
+		Long count = (Long) qry.getSingleResult();
+		return count == null ? 0 : count.intValue();
+	}
+
 }

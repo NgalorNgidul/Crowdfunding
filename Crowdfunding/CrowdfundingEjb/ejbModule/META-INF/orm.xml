@@ -148,11 +148,17 @@
 		<named-query name="listAllVerifiedByDate">
 			<query>select x from Prospect x where x.verified=1 and x.campaignEnd&gt;CURRENT_DATE order by x.verifiedDate desc</query>
 		</named-query>
+		<named-query name="listAllVerifiedByCat">
+			<query>select x from Prospect x where x.verified=1 and lower(x.category)=:category and x.campaignEnd&gt;CURRENT_DATE order by x.verifiedDate desc</query>
+		</named-query>
 		<named-query name="listAllVerified">
 			<query>select x from Prospect x where x.verified=1 and x.campaignEnd&gt;CURRENT_DATE order by x.verifiedDate</query>
 		</named-query>
 		<named-query name="listAllByOwnerStatus">
 			<query>select x from Prospect x where x.owner.id=:ownerId and x.verified=:status</query>
+		</named-query>
+		<named-query name="countProspectByCat">
+			<query>select count(x) from Prospect x where lower(x.category)=:category and x.verified=1 and x.campaignEnd&gt;CURRENT_DATE</query>
 		</named-query>
 		<attributes>
 			<id name="id">

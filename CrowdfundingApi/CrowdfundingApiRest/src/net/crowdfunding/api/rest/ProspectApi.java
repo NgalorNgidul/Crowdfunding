@@ -43,6 +43,14 @@ public class ProspectApi {
 	}
 
 	@GET()
+	@Path("/listallbycat/{category}/{startid}")
+	@Produces("application/json")
+	public FindProspectDto listAllByCat(@PathParam("category") String category,
+			@PathParam("startid") Long startId) {
+		return prospectManagement.listAllByCat(category, startId);
+	}
+
+	@GET()
 	@Path("/find/{textKey}")
 	@Produces("application/json")
 	public List<ProspectDto> find(@PathParam("textKey") String textKey) {

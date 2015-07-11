@@ -15,6 +15,8 @@ public interface IProspect {
 
 	List<Prospect> listAllVerifiedByDate();
 
+	List<Prospect> listAllVerifiedByCat(String category);
+
 	List<Prospect> listAllByOwner(long ownerId);
 
 	List<Prospect> listAllByOwnerStatus(long ownerId, int status);
@@ -22,5 +24,7 @@ public interface IProspect {
 	List<Prospect> listByVerified(int status);
 
 	List<Prospect> find(String textKey);
+	
+	int countByCategory(String category);
 
 }

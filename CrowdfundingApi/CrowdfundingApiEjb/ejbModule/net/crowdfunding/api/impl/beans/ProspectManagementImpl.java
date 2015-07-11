@@ -56,6 +56,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 				+ "/resources/getProspectImage?type=small&id=" + dto.getId());
 		dto.setShortDescription(prospect.getShortDescription());
 		dto.setDescription(prospect.getDescription());
+		dto.setCategory(prospect.getCategory());
 		dto.setLocation(prospect.getLocation());
 		dto.setProvince(prospect.getProvince());
 		dto.setPrincipal(prospect.getPrincipal());
@@ -155,7 +156,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 	}
 
 	@Override
-	public FindProspectDto listAll(long idMin) {
+	public FindProspectDto listAll(long startId) {
 		// Ambil data
 		List<Prospect> prospects = iProspect.listAllVerifiedByDate();
 		Collections.sort(prospects, new Comparator<Prospect>() {
@@ -173,7 +174,47 @@ public class ProspectManagementImpl implements ProspectManagement {
 		List<PageDto> pages = new ArrayList<PageDto>();
 		int i = 0, index = 0;
 		for (Prospect prospect : prospects) {
-			if (index < maxPerSite && prospect.getId() >= idMin) {
+			if (index < maxPerSite && prospect.getId() >= startId) {
+				prospectList.add(createDto(prospect));
+				//
+				index++;
+			}
+			//
+			if (i % maxPerSite == 0) {
+				PageDto page = new PageDto();
+				page.setPage((i / maxPerSite) + 1);
+				page.setStart(i > 0 ? prospect.getId() : 0);
+				pages.add(page);
+			}
+			//
+			i++;
+		}
+		FindProspectDto result = new FindProspectDto();
+		result.setProspects(prospectList);
+		result.setPages(pages);
+		return result;
+	}
+
+	@Override
+	public FindProspectDto listAllByCat(String category, long startId) {
+		// Ambil data
+		List<Prospect> prospects = iProspect.listAllVerifiedByCat(category);
+		Collections.sort(prospects, new Comparator<Prospect>() {
+
+			@Override
+			public int compare(Prospect o1, Prospect o2) {
+				Long l1 = o1.getId();
+				Long l2 = o2.getId();
+				return l1.compareTo(l2);
+			}
+		});
+		// Tampilkan
+		int maxPerSite = 6;
+		List<ProspectDto> prospectList = new ArrayList<ProspectDto>();
+		List<PageDto> pages = new ArrayList<PageDto>();
+		int i = 0, index = 0;
+		for (Prospect prospect : prospects) {
+			if (index < maxPerSite && prospect.getId() >= startId) {
 				prospectList.add(createDto(prospect));
 				//
 				index++;
@@ -299,6 +340,7 @@ public class ProspectManagementImpl implements ProspectManagement {
 	@Override
 	public List<String> listCategories() {
 		List<String> categories = new ArrayList<String>();
+		categories.add("Software");
 		categories.add("Kendaraan");
 		categories.add("Rumah baru");
 		categories.add("Renovasi");
@@ -310,13 +352,12 @@ public class ProspectManagementImpl implements ProspectManagement {
 
 	@Override
 	public List<InformationDto> listCategoriesInfo() {
+		List<String> strCategories = listCategories();
 		List<InformationDto> categories = new ArrayList<InformationDto>();
-		categories.add(new InformationDto("Kendaraan"));
-		categories.add(new InformationDto("Rumah baru"));
-		categories.add(new InformationDto("Renovasi"));
-		categories.add(new InformationDto("Biaya sekolah"));
-		categories.add(new InformationDto("Biaya pengobatan"));
-		categories.add(new InformationDto("Bayar kartu kredit"));
+		for (String category : strCategories) {
+			int number = iProspect.countByCategory(category);
+			categories.add(new InformationDto(category, number));
+		}
 		return categories;
 	}
 
