@@ -12,6 +12,9 @@ public class RegistrationDto implements Serializable {
 	private Date timestamp;
 	private String email;
 	private String name;
+	private Integer sex;
+	private Integer idType;
+	private String idCode;
 	private String address;
 	private String city;
 	private String zipCode;
@@ -24,6 +27,11 @@ public class RegistrationDto implements Serializable {
 	private Integer tenor;
 	private String key;
 	private Integer status;
+
+	public RegistrationDto() {
+		sex = 1;
+		idType = 1;
+	}
 
 	public String getEmail() {
 		return email;
@@ -143,6 +151,30 @@ public class RegistrationDto implements Serializable {
 
 	public Integer getStatus() {
 		return status;
+	}
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	public Integer getIdType() {
+		return idType;
+	}
+
+	public void setIdType(Integer idType) {
+		this.idType = idType;
+	}
+
+	public String getIdCode() {
+		return idCode;
+	}
+
+	public void setIdCode(String idCode) {
+		this.idCode = idCode;
 	}
 
 }

@@ -171,6 +171,9 @@ public class RegistrationManagementImpl implements RegistrationManagement {
 			// Create member
 			Member member = new Member();
 			member.setName(dto.getName());
+			member.setSex(dto.getSex());
+			member.setIdType(dto.getIdType());
+			member.setIdCode(dto.getIdCode());
 			member.setEmail(dto.getEmail());
 			member.setAddress(dto.getAddress());
 			member.setCity(dto.getCity());
